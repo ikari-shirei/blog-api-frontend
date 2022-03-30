@@ -1,0 +1,130 @@
+@import '../index.scss';
+
+.Post {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+
+  .post-image {
+    width: 100%;
+  }
+
+  .post-date {
+    color: $color2-25;
+
+    font-weight: 300;
+    font-size: $small;
+
+    margin: 0;
+    margin-top: 8px;
+  }
+
+  .post-main {
+    .post-title {
+      color: $color2;
+
+      font-weight: 600;
+      font-size: $biggest;
+
+      margin: 0;
+      margin-top: 8px;
+    }
+
+    .post-message {
+      color: $color2-50;
+
+      font-weight: 300;
+      font-size: $medium;
+
+      margin: 0;
+      margin-top: 8px;
+    }
+  }
+
+  .post-tags-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    margin: 0;
+    margin-top: 16px;
+
+    .post-tag {
+      color: $color2;
+      background-color: $color2-25;
+
+      font-weight: 300;
+      font-size: $smallest;
+
+      margin: 0;
+      margin-right: 8px;
+
+      padding: 4px;
+
+      border-radius: 16px;
+    }
+  }
+
+  .post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 16px;
+
+    .post-like-comment-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .post-comment-container,
+      .post-like-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &:nth-child(2) {
+          margin-left: 16px;
+        }
+      }
+
+      .post-comment-icon,
+      .post-like-icon {
+        color: $color2-50;
+
+        font-size: $medium;
+      }
+
+      .post-comment-count,
+      .post-like-count {
+        color: $color2-50;
+
+        font-weight: 300;
+        font-size: $medium;
+
+        margin-left: 8px;
+      }
+    }
+
+    .post-footer-right {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .post-read-time {
+        color: $color2-50;
+
+        font-weight: 300;
+        font-size: $medium;
+      }
+
+      .post-bookmark-icon {
+        color: $color2-50;
+
+        font-size: $biggest;
+
+        margin-left: 16px;
+      }
+    }
+  }
+}
