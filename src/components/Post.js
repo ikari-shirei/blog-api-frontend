@@ -28,9 +28,9 @@ function Post() {
 
       <div className="post-footer">
         <div className="post-like-comment-container">
-          <CommentPresent />
+          <CommentPresent count="0" />
 
-          <Likes />
+          <Likes count="0" />
         </div>
         <div className="post-footer-right">
           <p className="post-read-time">2 min</p>

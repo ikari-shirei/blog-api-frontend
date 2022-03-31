@@ -1,21 +1,21 @@
 import React from 'react'
 import '../styles/Comment.scss'
 
-function Comment() {
+import Likes from './small/Likes'
+
+function Comment({ username, date, message, like_count }) {
   return (
     <div className="Comment">
-      <div>
-        <p>other_username</p>
-        <p>MAR 30, 2022</p>
+      <div className="comment-top">
+        <p className="comment-username">{username}</p>
+        <p className="comment-date">{date}</p>
       </div>
 
-      <div>
-        <p>Message</p>
+      <div className="comment-middle">
+        <p className="comment-message">{message}</p>
       </div>
-      <div>
-        <span className=" material-icons-outlined">favorite_border</span>
-        <p>0</p>
-      </div>
+
+      <Likes count={like_count} />
     </div>
   )
 }
