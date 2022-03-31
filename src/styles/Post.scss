@@ -77,32 +77,8 @@
       justify-content: space-between;
       align-items: center;
 
-      .post-comment-container,
-      .post-like-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        &:nth-child(2) {
-          margin-left: 16px;
-        }
-      }
-
-      .post-comment-icon,
-      .post-like-icon {
-        color: $color2-50;
-
-        font-size: $medium;
-      }
-
-      .post-comment-count,
-      .post-like-count {
-        color: $color2-50;
-
-        font-weight: 300;
-        font-size: $medium;
-
-        margin-left: 8px;
+      div:nth-child(2) {
+        margin-left: 16px;
       }
     }
 

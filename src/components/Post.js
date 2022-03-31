@@ -1,6 +1,9 @@
 import React from 'react'
 import '../styles/Post.scss'
 import image from './image.png'
+import CommentPresent from './small/CommentPresent'
+
+import Likes from './small/Likes'
 
 function Post() {
   return (
@@ -25,18 +28,9 @@ function Post() {
 
       <div className="post-footer">
         <div className="post-like-comment-container">
-          <div className="post-comment-container">
-            <span className="post-comment-icon material-icons-outlined">
-              chat_bubble
-            </span>
-            <p className="post-comment-count">0</p>
-          </div>
-          <div className="post-like-container">
-            <span className="post-like-icon material-icons-outlined">
-              favorite_border
-            </span>
-            <p className="post-like-count">0</p>
-          </div>
+          <CommentPresent />
+
+          <Likes />
         </div>
         <div className="post-footer-right">
           <p className="post-read-time">2 min</p>

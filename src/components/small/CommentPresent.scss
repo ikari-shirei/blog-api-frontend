@@ -1,0 +1,22 @@
+@import '../../index.scss';
+
+.comment-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .comment-icon {
+    color: $color2-50;
+
+    font-size: $medium;
+  }
+
+  .comment-count {
+    color: $color2-50;
+
+    font-weight: 300;
+    font-size: $medium;
+
+    margin-left: 8px;
+  }
+}
