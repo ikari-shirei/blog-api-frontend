@@ -3,16 +3,26 @@
 .Button {
   width: 100%;
 
-  color: $color2;
-  background-color: transparent;
-
   font-weight: 300;
   font-size: $small;
-
-  border: 2px solid $color2-25;
-  border-radius: 16px;
 
   padding: 8px 0;
 
   cursor: pointer;
+}
+
+.first-variant {
+  color: $color2;
+  background-color: transparent;
+
+  border: 2px solid $color2-25;
+  border-radius: 16px;
+}
+
+.second-variant {
+  color: $color1;
+  background-color: $color2-25;
+
+  border: none;
+  border-radius: 16px;
 }

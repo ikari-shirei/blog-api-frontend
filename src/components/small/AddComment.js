@@ -12,7 +12,7 @@ function AddComment({ username }) {
         placeholder="Add your comments..."
       ></textarea>
       <div className="add-button-container">
-        <Button />
+        <Button value={'Add'} variant="first-variant" />
       </div>
     </div>
   )
