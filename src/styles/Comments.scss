@@ -1,0 +1,15 @@
+@import '../index.scss';
+
+.Comments {
+  .comments-section-header {
+    font-weight: 600;
+    font-size: $medium;
+
+    margin: 0;
+    margin-top: 32px;
+  }
+
+  .comments-section-add-comment {
+    margin-top: 16px;
+  }
+}

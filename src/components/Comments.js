@@ -7,10 +7,14 @@ import AddComment from './small/AddComment'
 function Comments({ post }) {
   return (
     <div className="Comments">
-      <h1>Comments</h1>
+      <h1 className="comments-section-header">Comments</h1>
 
       {/* You can only send comments if there is post */}
-      {post && <AddComment username={'your_username'} />}
+      {post && (
+        <div className="comments-section-add-comment">
+          <AddComment username={'your_username'} />{' '}
+        </div>
+      )}
 
       <Comment
         username={'other_username'}
