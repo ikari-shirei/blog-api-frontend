@@ -1,6 +1,8 @@
 import React from 'react'
 import '../styles/Comments.scss'
+
 import Comment from './Comment'
+import AddComment from './small/AddComment'
 
 function Comments({ post }) {
   return (
@@ -8,16 +10,7 @@ function Comments({ post }) {
       <h1>Comments</h1>
 
       {/* You can only send comments if there is post */}
-      {post && (
-        <div className="comment-add-container">
-          <p className="comment-add-username">your_username</p>
-          <textarea
-            className="comment-add-message"
-            placeholder="Add your comments..."
-          ></textarea>
-          <button className="comment-add-button">Add</button>
-        </div>
-      )}
+      {post && <AddComment username={'your_username'} />}
 
       <Comment
         username={'other_username'}

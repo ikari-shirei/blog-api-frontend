@@ -1,0 +1,54 @@
+@import '../index.scss';
+
+.Comment {
+  display: flex;
+  flex-direction: column;
+
+  width: $fixed-width1;
+  .comment-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 16px;
+    .comment-username {
+      color: $color2;
+
+      font-weight: 300;
+      font-size: $small;
+
+      margin: 0;
+    }
+
+    .comment-date {
+      color: $color2-25;
+
+      font-weight: 300;
+      font-size: $small;
+
+      margin: 0;
+    }
+  }
+
+  .comment-middle {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    margin-top: 8px;
+    padding: 8px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    border-left: 4px solid $color2-50;
+
+    .comment-message {
+      color: $color2-50;
+
+      font-weight: 300;
+      font-size: $medium;
+
+      margin: 0;
+    }
+  }
+}

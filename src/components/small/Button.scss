@@ -1,0 +1,16 @@
+@import '../../index.scss';
+
+.Button {
+  width: 100%;
+
+  color: $color2;
+
+  font-weight: 300;
+  font-size: 14px;
+
+  border: 2px solid $color2-25;
+  border-radius: 16px;
+
+  padding: 8px 0;
+  background-color: transparent;
+}
