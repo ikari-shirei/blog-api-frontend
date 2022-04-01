@@ -1,17 +1,31 @@
 import React from 'react'
 import '../styles/Login.scss'
+import { Link } from 'react-router-dom'
 
 // Components
 import Navbar from './Navbar'
 import Button from './small/Button'
 import Post from './Post'
+import TextInput from './small/TextInput'
 
 function Login() {
   return (
     <div className="Login">
       <div className="login-inside">
         <Navbar />
-        <Button value={'Button'} variant={'second-variant'} />
+        <form className="login-form">
+          <TextInput label="Username" name="username" />
+
+          <TextInput label="Password" name="password" />
+
+          <Button value="Button" variant="second-variant" type="submit" />
+        </form>
+
+        <div className="login-link">
+          <Link to="/register">
+            or <span>register</span>
+          </Link>
+        </div>
       </div>
     </div>
   )

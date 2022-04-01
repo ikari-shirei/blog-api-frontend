@@ -1,0 +1,21 @@
+@import '../../index.scss';
+
+.TextInput {
+  display: flex;
+  flex-direction: column;
+
+  color: $color2-50;
+
+  font-weight: 300;
+  font-size: 14px;
+
+  margin-top: 8px;
+
+  input {
+    border: 2px solid $color2-25;
+    border-radius: 16px;
+
+    margin-top: 8px;
+    padding: 8px;
+  }
+}

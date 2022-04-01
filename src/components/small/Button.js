@@ -1,8 +1,12 @@
 import React from 'react'
 import './Button.scss'
 
-function Button({ value, variant }) {
-  return <button className={'Button ' + variant}>{value}</button>
+function Button({ value, variant, type }) {
+  return (
+    <button className={'Button ' + variant} type={type && type}>
+      {value}
+    </button>
+  )
 }
 
 export default Button

@@ -10,5 +10,28 @@
 
   .login-inside {
     width: $fixed-width1;
+
+    button {
+      margin-top: 16px;
+    }
+    .login-link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 100%;
+
+      margin-top: 32px;
+      a {
+        color: $color2-50;
+
+        font-weight: 300;
+        font-size: 14px;
+
+        span {
+          color: $color2;
+        }
+      }
+    }
   }
 }
