@@ -1,0 +1,14 @@
+@import '../index.scss';
+
+.Login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+
+  .login-inside {
+    width: $fixed-width1;
+  }
+}

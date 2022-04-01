@@ -1,4 +1,5 @@
 import React from 'react'
+import '../styles/Home.scss'
 
 // Components
 import Navbar from './Navbar'
@@ -9,8 +10,10 @@ import Comments from './Comments'
 function Home() {
   return (
     <div className="Home">
-      <Navbar />
-      <PostDetail />
+      <div className="home-inside">
+        <Navbar />
+        <PostDetail />
+      </div>
     </div>
   )
 }
