@@ -1,11 +1,11 @@
 import React from 'react'
 import './TextInput.scss'
 
-function TextInput({ label, name }) {
+function TextInput({ label, name, type }) {
   return (
     <label className="TextInput">
       {label}
-      <input type="text" name={name} />
+      <input type={type} name={name} />
     </label>
   )
 }

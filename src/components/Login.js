@@ -14,11 +14,11 @@ function Login() {
       <div className="login-inside">
         <Navbar />
         <form className="login-form">
-          <TextInput label="Username" name="username" />
+          <TextInput label="Username" name="username" type={'text'} />
 
-          <TextInput label="Password" name="password" />
+          <TextInput label="Password" name="password" type={'text'} />
 
-          <Button value="Button" variant="second-variant" type="submit" />
+          <Button value="Login" variant="second-variant" type="submit" />
         </form>
 
         <div className="login-link">
