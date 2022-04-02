@@ -9,14 +9,19 @@ import Home from './components/Home'
 import Login from './components/Login'
 import Register from './components/Register'
 
+// Context
+import { ServerContext } from './context/Server'
+
 function App() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
+      <ServerContext.Provider value={{ adress: 'http://localhost:5000' }}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </ServerContext.Provider>
     </div>
   )
 }
