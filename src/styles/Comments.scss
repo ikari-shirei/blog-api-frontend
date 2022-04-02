@@ -1,6 +1,8 @@
 @import '../index.scss';
 
 .Comments {
+  margin: 0;
+  padding: 0;
   .comments-section-header {
     font-weight: 600;
     font-size: $big;
@@ -10,6 +12,7 @@
   }
 
   .comments-section-add-comment {
+    margin: 0;
     margin-top: 16px;
   }
 }

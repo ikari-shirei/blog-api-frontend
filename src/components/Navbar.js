@@ -42,7 +42,7 @@ function Navbar() {
             </li>
           </ul>
 
-          <SignOptions />
+          <SignOptions onClick={toggleNavbar} />
         </div>
       </div>
     )
