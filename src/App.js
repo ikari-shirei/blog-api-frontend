@@ -8,6 +8,7 @@ import 'material-icons/iconfont/material-icons.css'
 import Home from './components/Home'
 import Login from './components/Login'
 import Register from './components/Register'
+import Profile from './components/Profile'
 
 // Context
 import { ServerContext } from './context/Server'
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </ServerContext.Provider>
     </div>

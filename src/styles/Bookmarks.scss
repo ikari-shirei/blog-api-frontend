@@ -1,0 +1,15 @@
+@import '../index.scss';
+
+.Bookmarks {
+  width: 100%;
+
+  .bookmarks-section-header {
+    color: $color2;
+
+    font-weight: 600;
+    font-size: $big;
+
+    margin: 0;
+    margin-top: 32px;
+  }
+}

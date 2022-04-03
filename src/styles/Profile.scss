@@ -1,0 +1,53 @@
+@import '../index.scss';
+
+.Profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  .profile-inside {
+    width: $fixed-width1;
+
+    margin-bottom: 32px;
+    .profile-user-detail-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+
+      .profile-username {
+        color: $color2;
+
+        font-weight: 300;
+        font-size: $big;
+
+        margin: 0;
+        margin-top: 16px;
+      }
+
+      .profile-email {
+        color: $color2-50;
+
+        font-weight: 300;
+        font-size: $small;
+
+        margin: 0;
+        margin-top: 4px;
+      }
+
+      .profile-logout-button {
+        width: 100%;
+
+        margin-top: 16px;
+      }
+
+      .profile-delete-account-button {
+        width: 100%;
+
+        margin-top: 16px;
+      }
+    }
+  }
+}

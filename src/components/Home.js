@@ -12,7 +12,12 @@ function Home() {
     <div className="Home">
       <div className="home-inside">
         <Navbar />
-        <PostDetail />
+        <div className="home-post-container">
+          <Post />
+          <Post />
+          <Post />
+          <Post />
+        </div>
       </div>
     </div>
   )

@@ -40,6 +40,9 @@ function Navbar() {
             <li onClick={toggleNavbar}>
               <Link to="/tags">Tags</Link>
             </li>
+            <li onClick={toggleNavbar}>
+              <Link to="/profile">Profile</Link> {/* Only after logged in */}
+            </li>
           </ul>
 
           <SignOptions onClick={toggleNavbar} />
