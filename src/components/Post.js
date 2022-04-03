@@ -1,36 +1,34 @@
 import React from 'react'
 import '../styles/Post.scss'
-import image from './image.png'
+
 import CommentPresent from './small/CommentPresent'
 
 import Likes from './small/Likes'
 
-function Post() {
+function Post({ post }) {
   return (
     <div className="Post">
-      <img className="post-image" src={image} alt="one" />
+      <img className="post-image" src={post.image} alt="one" />
 
-      <p className="post-date">MAR 30, 2022</p>
+      <p className="post-date">{post.date}</p>
 
       <div className="post-main">
-        <h1 className="post-title">Title</h1>
-        <p className="post-message">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam,
-          purus sit amet luctus venenatis, lectus magna fringilla urna,
-          porttitor rhoncus dolor purus non enim.
-        </p>
+        <h1 className="post-title">{post.title}</h1>
+        <p className="post-message">{post.message}</p>
       </div>
+
       <div className="post-tags-container">
-        <p className="post-tag">#Ipsum</p>
-        <p className="post-tag">#Ipsum</p>
-        <p className="post-tag">#Ipsum</p>
+        {post.tags &&
+          post.tags.map((tag) => {
+            return <p className="post-tag">#{tag}</p>
+          })}
       </div>
 
       <div className="post-footer">
         <div className="post-like-comment-container">
-          <CommentPresent count="0" />
+          <CommentPresent count={post.comments.length} />
 
-          <Likes count="0" />
+          <Likes count={post.likes} />
         </div>
         <div className="post-footer-right">
           <p className="post-read-time">2 min</p>

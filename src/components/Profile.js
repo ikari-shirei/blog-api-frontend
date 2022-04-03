@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/Profile.scss'
 
+import image from './image.png'
+
 // Components
 import Navbar from './Navbar'
 import Bookmarks from './Bookmarks'
@@ -24,8 +26,32 @@ function Profile() {
           </div>
         </div>
 
-        <Bookmarks />
-        <Comments />
+        <Bookmarks
+          posts={[
+            {
+              image: image,
+              date: 'MAR 30, 2022',
+              title: 'Title 2',
+              message: `      Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
+                  aliquam, purus sit amet luctus venenatis, lectus magna
+                  fringilla urna, porttitor rhoncus dolor purus non enim.`,
+              tags: ['ipsum', 'other_ipsum'],
+              likes: 5,
+              comments: [],
+            },
+          ]}
+        />
+
+        <Comments
+          comments={[
+            {
+              username: 'Username',
+              date: '3 APR, 2022',
+              message: 'This is a message',
+              likes: 5,
+            },
+          ]}
+        />
 
         <div className="profile-delete-account-button">
           <Button
