@@ -1,8 +1,6 @@
 import { React, useContext, useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../styles/Register.scss'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
 
 // Components
 import Navbar from './Navbar'
@@ -42,15 +40,14 @@ function Register() {
         navigate(`/`)
       })
       .catch(function (error) {
-        const response = error.response
-        const errorsArray = error.response.data.map((item) => item.msg)
-        setErrors(errorsArray)
+        if (typeof error.response.data === 'object') {
+          const errorsArray = error.response.data.map((item) => item.msg)
+          setErrors(errorsArray)
+        } else {
+          setErrors([error])
+        }
       })
   }
-
-  useEffect(() => {
-    console.log(errors)
-  }, [errors])
 
   return (
     <div className="Register">
