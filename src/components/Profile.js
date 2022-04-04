@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../styles/Profile.scss'
 
 import image from './image.png'
@@ -11,6 +11,14 @@ import Button from './small/Button'
 import Comments from './Comments'
 
 function Profile() {
+  const navigate = useNavigate()
+
+  const logout = () => {
+    localStorage.removeItem('user')
+
+    navigate('/')
+  }
+
   return (
     <div className="Profile">
       <div className="profile-inside">
@@ -22,7 +30,12 @@ function Profile() {
             <h3 className="profile-email">email@mail.com</h3>
           </div>
           <div className="profile-logout-button">
-            <Button value="Logout" variant="second-variant" type="button" />
+            <Button
+              value="Logout"
+              variant="second-variant"
+              type="button"
+              onClick={logout}
+            />
           </div>
         </div>
 
@@ -38,6 +51,7 @@ function Profile() {
               tags: ['ipsum', 'other_ipsum'],
               likes: 5,
               comments: [],
+              id: 1,
             },
           ]}
         />
@@ -49,6 +63,7 @@ function Profile() {
               date: '3 APR, 2022',
               message: 'This is a message',
               likes: 5,
+              id: '1',
             },
           ]}
         />

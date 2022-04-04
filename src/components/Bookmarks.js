@@ -23,6 +23,7 @@ function Bookmarks({ posts }) {
                   likes: post.likes,
                   comments: post.comments,
                 }}
+                key={post.id}
               />
             )
           })

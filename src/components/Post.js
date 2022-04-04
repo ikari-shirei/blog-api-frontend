@@ -20,7 +20,11 @@ function Post({ post }) {
       <div className="post-tags-container">
         {post.tags &&
           post.tags.map((tag) => {
-            return <p className="post-tag">#{tag}</p>
+            return (
+              <p className="post-tag" key={post.tags.indexOf(tag)}>
+                #{tag}
+              </p>
+            )
           })}
       </div>
 

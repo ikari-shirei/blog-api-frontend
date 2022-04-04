@@ -24,6 +24,7 @@ function Comments({ post, comments }) {
               date={comment.date}
               message={comment.message}
               like_count={comment.likes}
+              key={comment.id}
             />
           )
         })
