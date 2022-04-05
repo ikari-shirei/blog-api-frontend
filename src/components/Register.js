@@ -31,7 +31,7 @@ function Register() {
     event.preventDefault()
 
     axios
-      .post(server.adress + '/register', {
+      .post(server + '/register', {
         username: registerForm.username,
         email: registerForm.email,
         password: registerForm.password,

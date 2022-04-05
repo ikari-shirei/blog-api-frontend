@@ -31,7 +31,7 @@ function Login() {
     setErrors(null)
 
     axios
-      .post(server.adress + '/login', {
+      .post(server + '/login', {
         email: loginForm.email,
         password: loginForm.password,
       })

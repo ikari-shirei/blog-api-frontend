@@ -1,22 +1,68 @@
-import { React, useEffect } from 'react'
+import { React, useState, useContext, useEffect } from 'react'
 import '../styles/Home.scss'
+import axios from 'axios'
 
 import image from './image.png'
 
 // Components
-import Navbar from './Navbar'
 import Post from './Post'
 
+// Helpers
+import { ServerContext } from '../context/Server'
+
 function Home() {
+  const [posts, setPosts] = useState([])
+
   const user = JSON.parse(localStorage.getItem('user_info'))
+
+  const server = useContext(ServerContext)
+
+  const getPosts = () => {
+    const response = axios
+      .get(server + '/posts')
+      .then(function (response) {
+        return response
+      })
+      .catch(function (err) {
+        return err
+      })
+
+    return response
+  }
+
+  useEffect(() => {
+    ;(async function () {
+      const response = await getPosts()
+
+      setPosts(response.data.posts)
+    })()
+  }, [])
 
   return (
     <div className="Home">
       <div className="home-inside">
         <div className="home-post-container">
-          <Post
+          {posts !== [] && posts
+            ? posts.map((post) => {
+                return (
+                  <Post
+                    post={{
+                      image: post.img,
+                      date: post.timestamp,
+                      title: post.title,
+                      message: post.message,
+                      tags: post.tags,
+                      likes: post.likes.length,
+                      comments: post.comments,
+                    }}
+                  />
+                )
+              })
+            : ''}
+
+          {/*    <Post
             post={{
-              image: image,
+              image: 'https://i.imgur.com/XQ8ZTld.jpeg',
               date: 'MAR 30, 2022',
               title: 'Title 2',
               message: `      Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
@@ -39,7 +85,7 @@ function Home() {
               likes: 5,
               comments: [],
             }}
-          />
+          /> */}
         </div>
       </div>
     </div>

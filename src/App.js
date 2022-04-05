@@ -13,6 +13,9 @@ import Register from './components/Register'
 import Profile from './components/Profile'
 import Success from './components/Success'
 
+// Context
+import { ServerContext } from './context/Server'
+
 // Helpers
 import requireAuth from './helpers/require_auth'
 
@@ -27,13 +30,15 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/success" element={<Success />} />
-      </Routes>
+      <ServerContext.Provider value="http://localhost:5000">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/success" element={<Success />} />
+        </Routes>
+      </ServerContext.Provider>
     </div>
   )
 }
