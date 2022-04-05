@@ -13,7 +13,6 @@ function Home() {
   return (
     <div className="Home">
       <div className="home-inside">
-        <Navbar />
         <div className="home-post-container">
           <Post
             post={{

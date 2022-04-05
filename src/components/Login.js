@@ -66,7 +66,6 @@ function Login() {
     return (
       <div className="Login">
         <div className="login-inside">
-          <Navbar />
           <form className="login-form" onSubmit={handleSubmit}>
             <TextInput
               label="Email"

@@ -63,7 +63,6 @@ function Register() {
     return (
       <div className="Register">
         <div className="register-inside">
-          <Navbar />
           <form className="register-form" onSubmit={handleSubmit}>
             <TextInput
               label="Username"

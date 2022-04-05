@@ -32,8 +32,6 @@ function Profile() {
     return (
       <div className="Profile">
         <div className="profile-inside">
-          <Navbar />
-
           <div className="profile-user-detail-container">
             <div>
               <h1 className="profile-username">{user.username}</h1>
