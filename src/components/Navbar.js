@@ -13,10 +13,6 @@ function Navbar() {
 
   const toggleNavbar = () => setNavbarState((prev) => !prev)
 
-  useEffect(() => {
-    requireAuth()
-  }, [])
-
   if (!navbarState) {
     return (
       <div className="navbar-closed">

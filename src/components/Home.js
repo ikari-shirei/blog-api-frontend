@@ -1,4 +1,4 @@
-import React from 'react'
+import { React, useEffect } from 'react'
 import '../styles/Home.scss'
 
 import image from './image.png'
@@ -6,10 +6,10 @@ import image from './image.png'
 // Components
 import Navbar from './Navbar'
 import Post from './Post'
-import PostDetail from './PostDetail'
-import Comments from './Comments'
 
 function Home() {
+  const user = JSON.parse(localStorage.getItem('user_info'))
+
   return (
     <div className="Home">
       <div className="home-inside">

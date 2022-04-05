@@ -10,6 +10,7 @@ import Home from './components/Home'
 import Login from './components/Login'
 import Register from './components/Register'
 import Profile from './components/Profile'
+import Success from './components/Success'
 
 // Helpers
 import requireAuth from './helpers/require_auth'
@@ -29,6 +30,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/success" element={<Success />} />
       </Routes>
     </div>
   )

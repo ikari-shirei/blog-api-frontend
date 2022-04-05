@@ -1,4 +1,4 @@
-import React from 'react'
+import { React, useState, useEffect } from 'react'
 import '../styles/Post.scss'
 
 import CommentPresent from './small/CommentPresent'
@@ -6,6 +6,8 @@ import CommentPresent from './small/CommentPresent'
 import Likes from './small/Likes'
 
 function Post({ post }) {
+  const user = JSON.parse(localStorage.getItem('user_info'))
+
   return (
     <div className="Post">
       <img className="post-image" src={post.image} alt="one" />
@@ -36,9 +38,13 @@ function Post({ post }) {
         </div>
         <div className="post-footer-right">
           <p className="post-read-time">2 min</p>
-          <span className="post-bookmark-icon material-icons-outlined">
-            bookmark_border
-          </span>
+          {user ? (
+            <span className="post-bookmark-icon material-icons-outlined">
+              bookmark_border
+            </span>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </div>

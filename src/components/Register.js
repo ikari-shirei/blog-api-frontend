@@ -12,9 +12,6 @@ import Errors from './small/Errors'
 // Context
 import { ServerContext } from '../context/Server'
 
-// Helpers
-import requireAuth from '../helpers/require_auth'
-
 function Register() {
   const user = JSON.parse(localStorage.getItem('user_info'))
 
@@ -53,11 +50,6 @@ function Register() {
         }
       })
   }
-
-  // Check if user still logged in
-  useEffect(() => {
-    requireAuth()
-  }, [])
 
   // Protect route
   useEffect(() => {

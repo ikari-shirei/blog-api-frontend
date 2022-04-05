@@ -11,9 +11,6 @@ import Errors from './small/Errors'
 // Context
 import { ServerContext } from '../context/Server'
 
-// Helpers
-import requireAuth from '../helpers/require_auth'
-
 function Login() {
   const user = JSON.parse(localStorage.getItem('user_info'))
 
@@ -42,10 +39,10 @@ function Login() {
         // User logged in
         if (response.data.token) {
           localStorage.setItem('user', JSON.stringify(response.data.token))
-        }
 
-        navigate('/')
-        window.location.reload()
+          navigate('/success')
+          window.location.reload()
+        }
       })
       .catch(function (error) {
         if (typeof error.response.data === 'object') {
@@ -56,11 +53,6 @@ function Login() {
         }
       })
   }
-
-  // Check if user still logged in
-  useEffect(() => {
-    requireAuth()
-  }, [])
 
   // Protect route
   useEffect(() => {
