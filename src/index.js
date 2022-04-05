@@ -5,12 +5,17 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.scss'
 import App from './App'
 
+// Context
+import { ServerContext } from './context/Server'
+
 const root = createRoot(document.getElementById('root'))
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ServerContext.Provider value={{ adress: 'http://localhost:5000' }}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ServerContext.Provider>
   </React.StrictMode>
 )

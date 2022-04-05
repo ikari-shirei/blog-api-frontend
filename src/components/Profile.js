@@ -1,4 +1,4 @@
-import React from 'react'
+import { React, useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import '../styles/Profile.scss'
 
@@ -10,37 +10,52 @@ import Bookmarks from './Bookmarks'
 import Button from './small/Button'
 import Comments from './Comments'
 
-function Profile() {
+// Context
+import { ServerContext } from '../context/Server'
+import { UserContext } from '../context/User'
+
+function Profile({ user, setUser }) {
   const navigate = useNavigate()
+
+  const protectRoute = () => {
+    if (!user) {
+      navigate('/')
+    }
+  }
 
   const logout = () => {
     localStorage.removeItem('user')
+    setUser(null)
 
     navigate('/')
   }
 
-  return (
-    <div className="Profile">
-      <div className="profile-inside">
-        <Navbar />
+  useEffect(() => protectRoute(), [])
 
-        <div className="profile-user-detail-container">
-          <div>
-            <h1 className="profile-username">your_username</h1>
-            <h3 className="profile-email">email@mail.com</h3>
-          </div>
-          <div className="profile-logout-button">
-            <Button
-              value="Logout"
-              variant="second-variant"
-              type="button"
-              onClick={logout}
-            />
-          </div>
-        </div>
+  if (user) {
+    return (
+      <div className="Profile">
+        <div className="profile-inside">
+          <Navbar />
 
-        <Bookmarks
-          posts={[
+          <div className="profile-user-detail-container">
+            <div>
+              <h1 className="profile-username">{user.username}</h1>
+              <h3 className="profile-email">{user.email}</h3>
+            </div>
+            <div className="profile-logout-button">
+              <Button
+                value="Logout"
+                variant="second-variant"
+                type="button"
+                onClick={logout}
+              />
+            </div>
+          </div>
+
+          <Bookmarks
+            posts={user.bookmarks}
+            /*   posts={[
             {
               image: image,
               date: 'MAR 30, 2022',
@@ -53,31 +68,43 @@ function Profile() {
               comments: [],
               id: 1,
             },
-          ]}
-        />
-
-        <Comments
-          comments={[
-            {
-              username: 'Username',
-              date: '3 APR, 2022',
-              message: 'This is a message',
-              likes: 5,
-              id: '1',
-            },
-          ]}
-        />
-
-        <div className="profile-delete-account-button">
-          <Button
-            value="Delete Account"
-            variant="first-variant"
-            type="button"
+          ]} */
           />
+
+          <Comments
+            comments={user.comments}
+            /*             comments={[
+              {
+                username: 'Username',
+                date: '3 APR, 2022',
+                message: 'This is a message',
+                likes: 5,
+                id: '1',
+              },
+            ]} */
+          />
+
+          <div className="profile-delete-account-button">
+            <Button
+              value="Delete Account"
+              variant="first-variant"
+              type="button"
+            />
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  } else {
+    return (
+      <div className="Profile">
+        <div className="profile-inside">
+          <Navbar />
+
+          {/* Loading */}
+        </div>
+      </div>
+    )
+  }
 }
 
 export default Profile

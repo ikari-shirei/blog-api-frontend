@@ -16,7 +16,7 @@ function Comments({ post, comments }) {
         </div>
       )}
 
-      {comments ? (
+      {comments && comments.length !== 0 ? (
         comments.map((comment) => {
           return (
             <Comment

@@ -11,7 +11,7 @@ import Errors from './small/Errors'
 // Context
 import { ServerContext } from '../context/Server'
 
-function Login() {
+function Login({ auth }) {
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: '',
@@ -40,6 +40,7 @@ function Login() {
           localStorage.setItem('user', JSON.stringify(response.data.token))
         }
 
+        auth()
         navigate(`/`)
       })
       .catch(function (error) {

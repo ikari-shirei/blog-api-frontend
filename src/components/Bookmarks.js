@@ -10,7 +10,7 @@ function Bookmarks({ posts }) {
       <h1 className="bookmarks-section-header">Bookmarks</h1>
 
       <div className="bookmarks-posts-container">
-        {posts ? (
+        {posts && posts.length !== 0 ? (
           posts.map((post) => {
             return (
               <Post
