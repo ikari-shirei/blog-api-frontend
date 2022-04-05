@@ -12,7 +12,12 @@ import Errors from './small/Errors'
 // Context
 import { ServerContext } from '../context/Server'
 
+// Helpers
+import requireAuth from '../helpers/require_auth'
+
 function Register() {
+  const user = JSON.parse(localStorage.getItem('user_info'))
+
   const [registerForm, setRegisterForm] = useState({
     username: '',
     email: '',
@@ -49,60 +54,75 @@ function Register() {
       })
   }
 
-  return (
-    <div className="Register">
-      <div className="register-inside">
-        <Navbar />
-        <form className="register-form" onSubmit={handleSubmit}>
-          <TextInput
-            label="Username"
-            name="username"
-            type={'text'}
-            onChange={(e) =>
-              setRegisterForm({ ...registerForm, username: e.target.value })
-            }
-          />
+  // Check if user still logged in
+  useEffect(() => {
+    requireAuth()
+  }, [])
 
-          <TextInput
-            label="Email"
-            name="email"
-            type={'text'}
-            onChange={(e) =>
-              setRegisterForm({ ...registerForm, email: e.target.value })
-            }
-          />
+  // Protect route
+  useEffect(() => {
+    if (user) {
+      navigate('/')
+      window.location.reload()
+    }
+  }, [])
 
-          <TextInput
-            label="Password"
-            name="password"
-            type={'password'}
-            onChange={(e) =>
-              setRegisterForm({ ...registerForm, password: e.target.value })
-            }
-          />
+  if (!user) {
+    return (
+      <div className="Register">
+        <div className="register-inside">
+          <Navbar />
+          <form className="register-form" onSubmit={handleSubmit}>
+            <TextInput
+              label="Username"
+              name="username"
+              type={'text'}
+              onChange={(e) =>
+                setRegisterForm({ ...registerForm, username: e.target.value })
+              }
+            />
 
-          <TextInput
-            label="Password again"
-            name="rpassword"
-            type={'password'}
-            onChange={(e) =>
-              setRegisterForm({ ...registerForm, rpassword: e.target.value })
-            }
-          />
+            <TextInput
+              label="Email"
+              name="email"
+              type={'text'}
+              onChange={(e) =>
+                setRegisterForm({ ...registerForm, email: e.target.value })
+              }
+            />
 
-          <Button value="Register" variant="second-variant" type="submit" />
-        </form>
+            <TextInput
+              label="Password"
+              name="password"
+              type={'password'}
+              onChange={(e) =>
+                setRegisterForm({ ...registerForm, password: e.target.value })
+              }
+            />
 
-        <div className="register-link">
-          <Link to="/login">
-            or <span>login</span>
-          </Link>
+            <TextInput
+              label="Password again"
+              name="rpassword"
+              type={'password'}
+              onChange={(e) =>
+                setRegisterForm({ ...registerForm, rpassword: e.target.value })
+              }
+            />
+
+            <Button value="Register" variant="second-variant" type="submit" />
+          </form>
+
+          <div className="register-link">
+            <Link to="/login">
+              or <span>login</span>
+            </Link>
+          </div>
+
+          <Errors errors={errors} />
         </div>
-
-        <Errors errors={errors} />
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default Register

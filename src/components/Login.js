@@ -1,4 +1,4 @@
-import { React, useContext, useState } from 'react'
+import { React, useContext, useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import '../styles/Login.scss'
 
@@ -11,7 +11,12 @@ import Errors from './small/Errors'
 // Context
 import { ServerContext } from '../context/Server'
 
-function Login({ auth }) {
+// Helpers
+import requireAuth from '../helpers/require_auth'
+
+function Login() {
+  const user = JSON.parse(localStorage.getItem('user_info'))
+
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: '',
@@ -30,7 +35,6 @@ function Login({ auth }) {
 
     axios
       .post(server.adress + '/login', {
-        /* headers: { Authorization: `Bearer ${localStorage.getItem('user')}` }, */
         email: loginForm.email,
         password: loginForm.password,
       })
@@ -40,8 +44,8 @@ function Login({ auth }) {
           localStorage.setItem('user', JSON.stringify(response.data.token))
         }
 
-        auth()
-        navigate(`/`)
+        navigate('/')
+        window.location.reload()
       })
       .catch(function (error) {
         if (typeof error.response.data === 'object') {
@@ -53,42 +57,57 @@ function Login({ auth }) {
       })
   }
 
-  return (
-    <div className="Login">
-      <div className="login-inside">
-        <Navbar />
-        <form className="login-form" onSubmit={handleSubmit}>
-          <TextInput
-            label="Email"
-            name="email"
-            type={'text'}
-            onChange={(e) =>
-              setLoginForm({ ...loginForm, email: e.target.value })
-            }
-          />
+  // Check if user still logged in
+  useEffect(() => {
+    requireAuth()
+  }, [])
 
-          <TextInput
-            label="Password"
-            name="password"
-            type={'password'}
-            onChange={(e) =>
-              setLoginForm({ ...loginForm, password: e.target.value })
-            }
-          />
+  // Protect route
+  useEffect(() => {
+    if (user) {
+      navigate('/')
+      window.location.reload()
+    }
+  }, [])
 
-          <Button value="Login" variant="second-variant" type="submit" />
-        </form>
+  if (!user) {
+    return (
+      <div className="Login">
+        <div className="login-inside">
+          <Navbar />
+          <form className="login-form" onSubmit={handleSubmit}>
+            <TextInput
+              label="Email"
+              name="email"
+              type={'text'}
+              onChange={(e) =>
+                setLoginForm({ ...loginForm, email: e.target.value })
+              }
+            />
 
-        <div className="login-link">
-          <Link to="/register">
-            or <span>register</span>
-          </Link>
+            <TextInput
+              label="Password"
+              name="password"
+              type={'password'}
+              onChange={(e) =>
+                setLoginForm({ ...loginForm, password: e.target.value })
+              }
+            />
+
+            <Button value="Login" variant="second-variant" type="submit" />
+          </form>
+
+          <div className="login-link">
+            <Link to="/register">
+              or <span>register</span>
+            </Link>
+          </div>
+
+          <Errors errors={errors} />
         </div>
-
-        <Errors errors={errors} />
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default Login

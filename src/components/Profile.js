@@ -14,30 +14,39 @@ import Comments from './Comments'
 import { ServerContext } from '../context/Server'
 import { UserContext } from '../context/User'
 
-function Profile({ user, setUser }) {
+import requireAuth from '../helpers/require_auth'
+
+function Profile() {
+  const user = JSON.parse(localStorage.getItem('user_info'))
+
   const navigate = useNavigate()
 
-  const protectRoute = () => {
+  const logout = () => {
+    localStorage.removeItem('user_info')
+    localStorage.removeItem('user')
+
+    window.location.reload()
+  }
+
+  // Check if user still logged in
+  useEffect(() => {
+    requireAuth()
+  }, [])
+
+  // Protect route
+  useEffect(() => {
     if (!user) {
       navigate('/')
+      window.location.reload()
     }
-  }
-
-  const logout = () => {
-    localStorage.removeItem('user')
-    setUser(null)
-
-    navigate('/')
-  }
-
-  useEffect(() => protectRoute(), [])
+  }, [])
 
   if (user) {
     return (
       <div className="Profile">
         <div className="profile-inside">
           <Navbar />
-
+          {console.log(user)}
           <div className="profile-user-detail-container">
             <div>
               <h1 className="profile-username">{user.username}</h1>
@@ -53,36 +62,9 @@ function Profile({ user, setUser }) {
             </div>
           </div>
 
-          <Bookmarks
-            posts={user.bookmarks}
-            /*   posts={[
-            {
-              image: image,
-              date: 'MAR 30, 2022',
-              title: 'Title 2',
-              message: `      Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
-                  aliquam, purus sit amet luctus venenatis, lectus magna
-                  fringilla urna, porttitor rhoncus dolor purus non enim.`,
-              tags: ['ipsum', 'other_ipsum'],
-              likes: 5,
-              comments: [],
-              id: 1,
-            },
-          ]} */
-          />
+          <Bookmarks posts={user.bookmarks} />
 
-          <Comments
-            comments={user.comments}
-            /*             comments={[
-              {
-                username: 'Username',
-                date: '3 APR, 2022',
-                message: 'This is a message',
-                likes: 5,
-                id: '1',
-              },
-            ]} */
-          />
+          <Comments comments={user.comments} />
 
           <div className="profile-delete-account-button">
             <Button
@@ -91,16 +73,6 @@ function Profile({ user, setUser }) {
               type="button"
             />
           </div>
-        </div>
-      </div>
-    )
-  } else {
-    return (
-      <div className="Profile">
-        <div className="profile-inside">
-          <Navbar />
-
-          {/* Loading */}
         </div>
       </div>
     )

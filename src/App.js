@@ -11,51 +11,25 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Profile from './components/Profile'
 
-// Context
-import { ServerContext } from './context/Server'
-import { UserContext } from './context/User'
-
 // Helpers
-import { authHeader } from './helpers/auth_header'
+import requireAuth from './helpers/require_auth'
 
 function App() {
-  const [user, setUser] = useState(null)
+  const user = JSON.parse(localStorage.getItem('user_info'))
 
-  const axios = require('axios').default
-  const server = useContext(ServerContext)
-  const navigate = useNavigate()
-
-  const auth = (route) => {
-    authHeader()
-
-    axios
-      .get(server.adress + `/${route}`, {})
-      .then(function (response) {
-        setUser(response.data.user)
-        console.log(response.data.user, 'response')
-      })
-      .catch(function (error) {
-        setUser(null)
-        console.log(error)
-      })
-  }
-
-  useEffect(auth, [])
+  // Check if user still logged in
+  useEffect(() => {
+    requireAuth()
+  }, [])
 
   return (
     <div className="App">
-      <UserContext.Provider value={user}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login auth={auth} />} />
-          <Route path="/register" element={<Register />} />
-
-          <Route
-            path="/profile"
-            element={<Profile user={user} setUser={setUser} />}
-          />
-        </Routes>
-      </UserContext.Provider>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
     </div>
   )
 }
