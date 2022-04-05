@@ -15,7 +15,7 @@ function Bookmarks({ posts }) {
             return (
               <Post
                 post={{
-                  image: post.image,
+                  image: post.img,
                   date: post.date,
                   title: post.title,
                   message: post.message,

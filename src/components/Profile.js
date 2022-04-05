@@ -3,15 +3,19 @@ import { Link, useNavigate } from 'react-router-dom'
 import '../styles/Profile.scss'
 
 // Components
-import Navbar from './Navbar'
 import Bookmarks from './Bookmarks'
 import Button from './small/Button'
 import Comments from './Comments'
+import axios from 'axios'
+import { ServerContext } from '../context/Server'
 
 function Profile() {
   const user = JSON.parse(localStorage.getItem('user_info'))
 
+  const [bookmarks, setBookmarks] = useState([])
+
   const navigate = useNavigate()
+  const server = useContext(ServerContext)
 
   const logout = () => {
     localStorage.removeItem('user_info')
@@ -19,6 +23,27 @@ function Profile() {
 
     window.location.reload()
   }
+
+  const getBookmarks = () => {
+    const response = axios
+      .get(server + '/profile/bookmarks')
+      .then(function (response) {
+        return response
+      })
+      .catch(function (err) {
+        return err
+      })
+
+    return response
+  }
+
+  // Get bookmarks
+  useEffect(() => {
+    ;(async function () {
+      const response = await getBookmarks()
+      setBookmarks(response.data.bookmarks)
+    })()
+  }, [])
 
   // Protect route
   useEffect(() => {
@@ -47,7 +72,8 @@ function Profile() {
             </div>
           </div>
 
-          <Bookmarks posts={user.bookmarks} />
+          {/* Get populated bookmarks */}
+          <Bookmarks posts={bookmarks} />
 
           <Comments comments={user.comments} />
 

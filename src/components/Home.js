@@ -2,8 +2,6 @@ import { React, useState, useContext, useEffect } from 'react'
 import '../styles/Home.scss'
 import axios from 'axios'
 
-import image from './image.png'
-
 // Components
 import Post from './Post'
 
@@ -33,7 +31,6 @@ function Home() {
   useEffect(() => {
     ;(async function () {
       const response = await getPosts()
-
       setPosts(response.data.posts)
     })()
   }, [])
@@ -47,6 +44,7 @@ function Home() {
                 return (
                   <Post
                     post={{
+                      id: post._id,
                       image: post.img,
                       date: post.timestamp,
                       title: post.title,
@@ -55,37 +53,11 @@ function Home() {
                       likes: post.likes.length,
                       comments: post.comments,
                     }}
+                    key={post._id}
                   />
                 )
               })
             : ''}
-
-          {/*    <Post
-            post={{
-              image: 'https://i.imgur.com/XQ8ZTld.jpeg',
-              date: 'MAR 30, 2022',
-              title: 'Title 2',
-              message: `      Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
-                  aliquam, purus sit amet luctus venenatis, lectus magna
-                  fringilla urna, porttitor rhoncus dolor purus non enim.`,
-              tags: ['ipsum', 'other_ipsum'],
-              likes: 5,
-              comments: [],
-            }}
-          />
-          <Post
-            post={{
-              image: image,
-              date: 'MAR 30, 2022',
-              title: 'Title 2',
-              message: `      Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
-                  aliquam, purus sit amet luctus venenatis, lectus magna
-                  fringilla urna, porttitor rhoncus dolor purus non enim.`,
-              tags: ['ipsum', 'other_ipsum'],
-              likes: 5,
-              comments: [],
-            }}
-          /> */}
         </div>
       </div>
     </div>
