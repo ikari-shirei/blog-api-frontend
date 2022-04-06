@@ -10,10 +10,7 @@ import Likes from './small/Likes'
 //Context
 import { ServerContext } from '../context/Server'
 
-//Helpers
-import { authHeader } from '../helpers/auth_header'
-
-function Post({ post }) {
+function Post({ post, bookmarks }) {
   const [bookmarkIcon, setBookmarkIcon] = useState('bookmark_border')
   const user = JSON.parse(localStorage.getItem('user_info'))
 
@@ -41,30 +38,18 @@ function Post({ post }) {
 
   // Check if user bookmarked this post
   useEffect(() => {
-    if (user) {
-      authHeader()
+    if (user && bookmarks) {
+      const isBookmarkExist = bookmarks.some((bookmark) => {
+        return bookmark._id === post.id
+      })
 
-      // Get user bookmarks
-      axios
-        .get(server + '/profile/bookmarks')
-        .then(function (response) {
-          const userBookmarks = response.data.bookmarks
-
-          const isBookmarkExist = userBookmarks.some((bookmark) => {
-            return bookmark._id === post.id
-          })
-
-          if (isBookmarkExist) {
-            setBookmarkIcon('bookmark')
-          } else {
-            setBookmarkIcon('bookmark_border')
-          }
-        })
-        .catch(function (err) {
-          console.log(err)
-        })
+      if (isBookmarkExist) {
+        setBookmarkIcon('bookmark')
+      } else {
+        setBookmarkIcon('bookmark_border')
+      }
     }
-  }, [])
+  }, [bookmarks])
 
   const convertDate = (date) => {
     const newDate = new Date(date)

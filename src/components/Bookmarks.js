@@ -25,6 +25,7 @@ function Bookmarks({ posts }) {
                   comments: post.comments,
                 }}
                 key={post._id}
+                bookmarks={posts}
               />
             )
           })
