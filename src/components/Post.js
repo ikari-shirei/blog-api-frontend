@@ -1,10 +1,11 @@
 import axios from 'axios'
 import { React, useContext } from 'react'
 import { ServerContext } from '../context/Server'
+import { DateTime } from 'luxon'
 import '../styles/Post.scss'
 
+//Components
 import CommentPresent from './small/CommentPresent'
-
 import Likes from './small/Likes'
 
 function Post({ post }) {
@@ -25,11 +26,16 @@ function Post({ post }) {
       })
   }
 
+  const convertDate = (date) => {
+    const newDate = new Date(date)
+    return DateTime.fromJSDate(newDate).toLocaleString(DateTime.DATE_FULL)
+  }
+
   return (
     <div className="Post">
       <img className="post-image" src={post.image} alt="one" />
 
-      <p className="post-date">{post.date}</p>
+      <p className="post-date">{convertDate(post.date)}</p>
 
       <div className="post-main">
         <h1 className="post-title">{post.title}</h1>
