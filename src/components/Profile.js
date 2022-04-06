@@ -25,24 +25,19 @@ function Profile() {
   }
 
   const getBookmarks = () => {
-    const response = axios
+    axios
       .get(server + '/profile/bookmarks')
       .then(function (response) {
-        return response
+        setBookmarks(response.data.bookmarks)
       })
       .catch(function (err) {
-        return err
+        console.log(err)
       })
-
-    return response
   }
 
   // Get bookmarks
   useEffect(() => {
-    ;(async function () {
-      const response = await getBookmarks()
-      setBookmarks(response.data.bookmarks)
-    })()
+    getBookmarks()
   }, [])
 
   // Protect route

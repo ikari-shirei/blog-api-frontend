@@ -16,23 +16,18 @@ function Home() {
   const server = useContext(ServerContext)
 
   const getPosts = () => {
-    const response = axios
+    axios
       .get(server + '/posts')
       .then(function (response) {
-        return response
+        setPosts(response.data.posts)
       })
       .catch(function (err) {
-        return err
+        console.log(err)
       })
-
-    return response
   }
 
   useEffect(() => {
-    ;(async function () {
-      const response = await getPosts()
-      setPosts(response.data.posts)
-    })()
+    getPosts()
   }, [])
 
   return (
@@ -50,7 +45,7 @@ function Home() {
                       title: post.title,
                       message: post.message,
                       tags: post.tags,
-                      likes: post.likes.length,
+                      likes: post.likes,
                       comments: post.comments,
                     }}
                     key={post._id}
