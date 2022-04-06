@@ -56,6 +56,13 @@ function Post({ post, bookmarks }) {
     return DateTime.fromJSDate(newDate).toLocaleString(DateTime.DATE_FULL)
   }
 
+  const calculateReadingTime = (message) => {
+    const totalCount = message.length
+    const time = Math.ceil(totalCount / 200)
+
+    return time
+  }
+
   return (
     <div className="Post">
       <img className="post-image" src={post.image} alt="one" />
@@ -85,7 +92,9 @@ function Post({ post, bookmarks }) {
           <Likes count={post.likes.length} />
         </div>
         <div className="post-footer-right">
-          <p className="post-read-time">2 min</p>
+          <p className="post-read-time">
+            {calculateReadingTime(post.message)} min
+          </p>
 
           {/* Bookmark */}
 
