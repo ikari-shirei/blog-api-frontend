@@ -11,6 +11,9 @@ import Comments from './Comments'
 // Context
 import { ServerContext } from '../context/Server'
 
+//Helpers
+import { authHeader } from '../helpers/auth_header'
+
 function Profile() {
   const user = JSON.parse(localStorage.getItem('user_info'))
 
@@ -27,6 +30,8 @@ function Profile() {
   }
 
   const getBookmarks = () => {
+    authHeader()
+
     axios
       .get(server + '/profile/bookmarks')
       .then(function (response) {
@@ -39,7 +44,9 @@ function Profile() {
 
   // Get bookmarks
   useEffect(() => {
-    getBookmarks()
+    if (user) {
+      getBookmarks()
+    }
   }, [])
 
   // Protect route

@@ -10,6 +10,9 @@ import Likes from './small/Likes'
 //Context
 import { ServerContext } from '../context/Server'
 
+//Helpers
+import { authHeader } from '../helpers/auth_header'
+
 function Post({ post }) {
   const [bookmarkIcon, setBookmarkIcon] = useState('bookmark_border')
   const user = JSON.parse(localStorage.getItem('user_info'))
@@ -39,6 +42,8 @@ function Post({ post }) {
   // Check if user bookmarked this post
   useEffect(() => {
     if (user) {
+      authHeader()
+
       // Get user bookmarks
       axios
         .get(server + '/profile/bookmarks')
