@@ -1,6 +1,5 @@
 import axios from 'axios'
-import { React, useContext } from 'react'
-import { ServerContext } from '../context/Server'
+import { React, useContext, useState } from 'react'
 import { DateTime } from 'luxon'
 import '../styles/Post.scss'
 
@@ -8,7 +7,11 @@ import '../styles/Post.scss'
 import CommentPresent from './small/CommentPresent'
 import Likes from './small/Likes'
 
+//Context
+import { ServerContext } from '../context/Server'
+
 function Post({ post }) {
+  const [bookmarkIcon, setBookmarkIcon] = useState('bookmark_border')
   const user = JSON.parse(localStorage.getItem('user_info'))
 
   const server = useContext(ServerContext)
@@ -18,8 +21,15 @@ function Post({ post }) {
       .post(server + '/post/' + post.id + '/bookmark', {
         post_id: post.id,
       })
-      .then(function (response) {
-        console.log(response)
+      .then(function () {
+        // Change icon on success
+        setBookmarkIcon((prev) => {
+          if (prev === 'bookmark_border') {
+            return 'bookmark'
+          } else {
+            return 'bookmark_border'
+          }
+        })
       })
       .catch(function (err) {
         console.log(err)
@@ -61,16 +71,21 @@ function Post({ post }) {
         </div>
         <div className="post-footer-right">
           <p className="post-read-time">2 min</p>
+
+          {/* Bookmark */}
+
           {user ? (
             <span
               className="post-bookmark-icon material-icons-outlined"
               onClick={handleBookmark}
             >
-              bookmark_border
+              {bookmarkIcon}
             </span>
           ) : (
             ''
           )}
+
+          {/* Bookmark */}
         </div>
       </div>
     </div>
