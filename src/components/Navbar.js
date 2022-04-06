@@ -1,10 +1,9 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/Navbar.scss'
 
+// Components
 import SignOptions from './small/SignOptions'
-
-import requireAuth from '../helpers/require_auth'
 
 function Navbar() {
   const user = JSON.parse(localStorage.getItem('user_info'))

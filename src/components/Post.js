@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { React, useState, useEffect, useContext } from 'react'
+import { React, useContext } from 'react'
 import { ServerContext } from '../context/Server'
 import '../styles/Post.scss'
 
@@ -14,7 +14,7 @@ function Post({ post }) {
 
   const handleBookmark = () => {
     axios
-      .post(server + '/post' + '/' + post.id + '/bookmark', {
+      .post(server + '/post/' + post.id + '/bookmark', {
         post_id: post.id,
       })
       .then(function (response) {

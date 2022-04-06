@@ -1,5 +1,7 @@
 import React from 'react'
 import '../styles/PostDetail.scss'
+
+// Components
 import Post from './Post'
 import Comments from './Comments'
 

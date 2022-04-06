@@ -1,7 +1,5 @@
-import { React, useContext, useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { React, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
-
 import './App.scss'
 import 'material-icons/iconfont/material-icons.css'
 

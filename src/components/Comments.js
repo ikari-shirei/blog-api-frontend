@@ -1,6 +1,7 @@
 import React from 'react'
 import '../styles/Comments.scss'
 
+// Components
 import Comment from './Comment'
 import AddComment from './small/AddComment'
 
@@ -12,7 +13,7 @@ function Comments({ post, comments }) {
       {/* You can only send comments if there is post */}
       {post && (
         <div className="comments-section-add-comment">
-          <AddComment username={'your_username'} />{' '}
+          <AddComment username={'your_username'} />
         </div>
       )}
 

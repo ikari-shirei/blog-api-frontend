@@ -1,12 +1,14 @@
 import { React, useContext, useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import '../styles/Profile.scss'
+import axios from 'axios'
 
 // Components
 import Bookmarks from './Bookmarks'
 import Button from './small/Button'
 import Comments from './Comments'
-import axios from 'axios'
+
+// Context
 import { ServerContext } from '../context/Server'
 
 function Profile() {

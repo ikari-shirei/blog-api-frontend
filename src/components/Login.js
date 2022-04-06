@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import '../styles/Login.scss'
 
 // Components
-import Navbar from './Navbar'
 import Button from './small/Button'
 import TextInput from './small/TextInput'
 import Errors from './small/Errors'

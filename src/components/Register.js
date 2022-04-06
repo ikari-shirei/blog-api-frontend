@@ -3,9 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import '../styles/Register.scss'
 
 // Components
-import Navbar from './Navbar'
 import Button from './small/Button'
-import Post from './Post'
 import TextInput from './small/TextInput'
 import Errors from './small/Errors'
 
@@ -37,7 +35,7 @@ function Register() {
         password: registerForm.password,
         rpassword: registerForm.rpassword,
       })
-      .then(function (response) {
+      .then(function () {
         // User registered
         navigate(`/`)
       })
