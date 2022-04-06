@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { React, useContext, useState } from 'react'
+import { React, useContext, useState, useEffect } from 'react'
 import { DateTime } from 'luxon'
 import '../styles/Post.scss'
 
@@ -35,6 +35,31 @@ function Post({ post }) {
         console.log(err)
       })
   }
+
+  // Check if user bookmarked this post
+  useEffect(() => {
+    if (user) {
+      // Get user bookmarks
+      axios
+        .get(server + '/profile/bookmarks')
+        .then(function (response) {
+          const userBookmarks = response.data.bookmarks
+
+          const isBookmarkExist = userBookmarks.some((bookmark) => {
+            return bookmark._id === post.id
+          })
+
+          if (isBookmarkExist) {
+            setBookmarkIcon('bookmark')
+          } else {
+            setBookmarkIcon('bookmark_border')
+          }
+        })
+        .catch(function (err) {
+          console.log(err)
+        })
+    }
+  }, [])
 
   const convertDate = (date) => {
     const newDate = new Date(date)
