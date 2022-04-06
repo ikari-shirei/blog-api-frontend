@@ -1,46 +1,58 @@
-import React from 'react'
+import { React, useState, useContext, useEffect } from 'react'
 import '../styles/Home.scss'
-
-import image from './image.png'
+import axios from 'axios'
 
 // Components
-import Navbar from './Navbar'
 import Post from './Post'
-import PostDetail from './PostDetail'
-import Comments from './Comments'
+
+// Helpers
+import { ServerContext } from '../context/Server'
 
 function Home() {
+  const [posts, setPosts] = useState([])
+
+  const user = JSON.parse(localStorage.getItem('user_info'))
+
+  const server = useContext(ServerContext)
+
+  const getPosts = () => {
+    axios
+      .get(server + '/posts')
+      .then(function (response) {
+        setPosts(response.data.posts)
+      })
+      .catch(function (err) {
+        console.log(err)
+      })
+  }
+
+  useEffect(() => {
+    getPosts()
+  }, [])
+
   return (
     <div className="Home">
       <div className="home-inside">
-        <Navbar />
         <div className="home-post-container">
-          <Post
-            post={{
-              image: image,
-              date: 'MAR 30, 2022',
-              title: 'Title 2',
-              message: `      Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
-                  aliquam, purus sit amet luctus venenatis, lectus magna
-                  fringilla urna, porttitor rhoncus dolor purus non enim.`,
-              tags: ['ipsum', 'other_ipsum'],
-              likes: 5,
-              comments: [],
-            }}
-          />
-          <Post
-            post={{
-              image: image,
-              date: 'MAR 30, 2022',
-              title: 'Title 2',
-              message: `      Lorem ipsum dolor sit amet, consectetur adipiscing elit ut
-                  aliquam, purus sit amet luctus venenatis, lectus magna
-                  fringilla urna, porttitor rhoncus dolor purus non enim.`,
-              tags: ['ipsum', 'other_ipsum'],
-              likes: 5,
-              comments: [],
-            }}
-          />
+          {posts !== [] && posts
+            ? posts.map((post) => {
+                return (
+                  <Post
+                    post={{
+                      id: post._id,
+                      image: post.img,
+                      date: post.timestamp,
+                      title: post.title,
+                      message: post.message,
+                      tags: post.tags,
+                      likes: post.likes,
+                      comments: post.comments,
+                    }}
+                    key={post._id}
+                  />
+                )
+              })
+            : ''}
         </div>
       </div>
     </div>

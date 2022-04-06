@@ -1,9 +1,8 @@
-import { React, useContext, useState } from 'react'
+import { React, useContext, useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import '../styles/Login.scss'
 
 // Components
-import Navbar from './Navbar'
 import Button from './small/Button'
 import TextInput from './small/TextInput'
 import Errors from './small/Errors'
@@ -12,6 +11,8 @@ import Errors from './small/Errors'
 import { ServerContext } from '../context/Server'
 
 function Login() {
+  const user = JSON.parse(localStorage.getItem('user_info'))
+
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: '',
@@ -29,8 +30,7 @@ function Login() {
     setErrors(null)
 
     axios
-      .post(server.adress + '/login', {
-        /* headers: { Authorization: `Bearer ${localStorage.getItem('user')}` }, */
+      .post(server + '/login', {
         email: loginForm.email,
         password: loginForm.password,
       })
@@ -38,9 +38,10 @@ function Login() {
         // User logged in
         if (response.data.token) {
           localStorage.setItem('user', JSON.stringify(response.data.token))
-        }
 
-        navigate(`/`)
+          navigate('/success')
+          window.location.reload()
+        }
       })
       .catch(function (error) {
         if (typeof error.response.data === 'object') {
@@ -52,42 +53,51 @@ function Login() {
       })
   }
 
-  return (
-    <div className="Login">
-      <div className="login-inside">
-        <Navbar />
-        <form className="login-form" onSubmit={handleSubmit}>
-          <TextInput
-            label="Email"
-            name="email"
-            type={'text'}
-            onChange={(e) =>
-              setLoginForm({ ...loginForm, email: e.target.value })
-            }
-          />
+  // Protect route
+  useEffect(() => {
+    if (user) {
+      navigate('/')
+      window.location.reload()
+    }
+  }, [])
 
-          <TextInput
-            label="Password"
-            name="password"
-            type={'password'}
-            onChange={(e) =>
-              setLoginForm({ ...loginForm, password: e.target.value })
-            }
-          />
+  if (!user) {
+    return (
+      <div className="Login">
+        <div className="login-inside">
+          <form className="login-form" onSubmit={handleSubmit}>
+            <TextInput
+              label="Email"
+              name="email"
+              type={'text'}
+              onChange={(e) =>
+                setLoginForm({ ...loginForm, email: e.target.value })
+              }
+            />
 
-          <Button value="Login" variant="second-variant" type="submit" />
-        </form>
+            <TextInput
+              label="Password"
+              name="password"
+              type={'password'}
+              onChange={(e) =>
+                setLoginForm({ ...loginForm, password: e.target.value })
+              }
+            />
 
-        <div className="login-link">
-          <Link to="/register">
-            or <span>register</span>
-          </Link>
+            <Button value="Login" variant="second-variant" type="submit" />
+          </form>
+
+          <div className="login-link">
+            <Link to="/register">
+              or <span>register</span>
+            </Link>
+          </div>
+
+          <Errors errors={errors} />
         </div>
-
-        <Errors errors={errors} />
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default Login

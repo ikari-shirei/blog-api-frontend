@@ -10,12 +10,12 @@ function Bookmarks({ posts }) {
       <h1 className="bookmarks-section-header">Bookmarks</h1>
 
       <div className="bookmarks-posts-container">
-        {posts ? (
+        {posts && posts.length !== 0 ? (
           posts.map((post) => {
             return (
               <Post
                 post={{
-                  image: post.image,
+                  image: post.img,
                   date: post.date,
                   title: post.title,
                   message: post.message,
@@ -23,7 +23,7 @@ function Bookmarks({ posts }) {
                   likes: post.likes,
                   comments: post.comments,
                 }}
-                key={post.id}
+                key={post._id}
               />
             )
           })

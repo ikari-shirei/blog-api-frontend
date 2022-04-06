@@ -1,0 +1,21 @@
+@import '../index.scss';
+
+.Success {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: $fixed-width1;
+
+  text-align: center;
+
+  .success-text {
+    color: $color2;
+
+    font-weight: 300;
+    font-size: $big;
+
+    width: 100%;
+  }
+}

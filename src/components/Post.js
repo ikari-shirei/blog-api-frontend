@@ -1,4 +1,6 @@
-import React from 'react'
+import axios from 'axios'
+import { React, useContext } from 'react'
+import { ServerContext } from '../context/Server'
 import '../styles/Post.scss'
 
 import CommentPresent from './small/CommentPresent'
@@ -6,6 +8,23 @@ import CommentPresent from './small/CommentPresent'
 import Likes from './small/Likes'
 
 function Post({ post }) {
+  const user = JSON.parse(localStorage.getItem('user_info'))
+
+  const server = useContext(ServerContext)
+
+  const handleBookmark = () => {
+    axios
+      .post(server + '/post/' + post.id + '/bookmark', {
+        post_id: post.id,
+      })
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(function (err) {
+        console.log(err)
+      })
+  }
+
   return (
     <div className="Post">
       <img className="post-image" src={post.image} alt="one" />
@@ -30,15 +49,22 @@ function Post({ post }) {
 
       <div className="post-footer">
         <div className="post-like-comment-container">
-          <CommentPresent count={post.comments.length} />
+          {post.comments ? <CommentPresent count={post.comments.length} /> : ''}
 
-          <Likes count={post.likes} />
+          <Likes count={post.likes.length} />
         </div>
         <div className="post-footer-right">
           <p className="post-read-time">2 min</p>
-          <span className="post-bookmark-icon material-icons-outlined">
-            bookmark_border
-          </span>
+          {user ? (
+            <span
+              className="post-bookmark-icon material-icons-outlined"
+              onClick={handleBookmark}
+            >
+              bookmark_border
+            </span>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </div>

@@ -2,9 +2,12 @@ import { React, useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/Navbar.scss'
 
+// Components
 import SignOptions from './small/SignOptions'
 
 function Navbar() {
+  const user = JSON.parse(localStorage.getItem('user_info'))
+
   const [navbarState, setNavbarState] = useState(false)
 
   const toggleNavbar = () => setNavbarState((prev) => !prev)
@@ -40,12 +43,16 @@ function Navbar() {
             <li onClick={toggleNavbar}>
               <Link to="/tags">Tags</Link>
             </li>
-            <li onClick={toggleNavbar}>
-              <Link to="/profile">Profile</Link> {/* Only after logged in */}
-            </li>
+            {user ? (
+              <li onClick={toggleNavbar}>
+                <Link to="/profile">Profile</Link> {/* Only after logged in */}
+              </li>
+            ) : (
+              ''
+            )}
           </ul>
 
-          <SignOptions onClick={toggleNavbar} />
+          {!user ? <SignOptions onClick={toggleNavbar} /> : ' '}
         </div>
       </div>
     )
