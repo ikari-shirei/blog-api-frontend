@@ -11,6 +11,9 @@ import Likes from './small/Likes'
 //Context
 import { ServerContext } from '../context/Server'
 
+// Helpers
+import requireAuth from '../helpers/require_auth'
+
 function Post({ post, userBookmarks }) {
   const [bookmarkIcon, setBookmarkIcon] = useState('bookmark_border')
   const [likeIcon, setLikeIcon] = useState('favorite_border')
@@ -61,9 +64,7 @@ function Post({ post, userBookmarks }) {
       .post(server + '/post/' + post.id + '/like', {
         post_id: post.id,
       })
-      .then(function (response) {
-        setLikeCount(response.data.likes.length)
-
+      .then(function () {
         // Change icon on success
         setLikeIcon((prev) => {
           if (prev === 'favorite_border') {
@@ -81,19 +82,21 @@ function Post({ post, userBookmarks }) {
   // Check if user liked this post
   useEffect(() => {
     if (user) {
-      const isUserLiked = post.likes.some((like) => {
-        console.log(like, user._id, post.title) /* This */
-        return like === user._id
-      })
-      console.log(isUserLiked)
+      axios.get(server + '/post/' + post.id).then(function (response) {
+        setLikeCount(response.data.post.likes.length)
 
-      if (isUserLiked) {
-        setLikeIcon('favorite')
-      } else {
-        setLikeIcon('favorite_border')
-      }
+        const isUserLiked = response.data.post.likes.some((like) => {
+          return like === user._id
+        })
+
+        if (isUserLiked) {
+          setLikeIcon('favorite')
+        } else {
+          setLikeIcon('favorite_border')
+        }
+      })
     }
-  }, [post.likes])
+  }, [likeIcon])
 
   const goToPostDetail = () => {
     if (window.location.pathname !== '/post/' + post.id) {
