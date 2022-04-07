@@ -9,8 +9,33 @@ import Comments from './Comments'
 // Context
 import { ServerContext } from '../context/Server'
 
+//Helpers
+import { authHeader } from '../helpers/auth_header'
+
 function PostDetail() {
   const [post, setPost] = useState(null)
+  const [bookmarks, setBookmarks] = useState([])
+
+  const user = JSON.parse(localStorage.getItem('user_info'))
+
+  const getBookmarks = () => {
+    authHeader()
+
+    axios
+      .get(server + '/profile/bookmarks')
+      .then(function (response) {
+        setBookmarks(response.data.bookmarks)
+      })
+      .catch(function (err) {
+        console.log(err)
+      })
+  }
+
+  useEffect(() => {
+    if (user) {
+      getBookmarks()
+    }
+  }, [])
 
   const server = useContext(ServerContext)
 
@@ -47,7 +72,7 @@ function PostDetail() {
             comments: post.comments,
           }}
           key={post._id}
-          /*  bookmarks={posts} */ // This
+          bookmarks={bookmarks}
         />
       ) : (
         ''
