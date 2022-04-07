@@ -47,7 +47,7 @@ function Home({
                       comments: post.comments,
                     }}
                     key={post._id}
-                    bookmarks={userBookmarks}
+                    userBookmarks={userBookmarks}
                   />
                 )
               })

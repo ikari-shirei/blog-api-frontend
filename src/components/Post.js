@@ -11,8 +11,11 @@ import Likes from './small/Likes'
 //Context
 import { ServerContext } from '../context/Server'
 
-function Post({ post, bookmarks }) {
+function Post({ post, userBookmarks }) {
   const [bookmarkIcon, setBookmarkIcon] = useState('bookmark_border')
+  const [likeIcon, setLikeIcon] = useState('favorite_border')
+  const [likeCount, setLikeCount] = useState(post.likes.length)
+
   const user = JSON.parse(localStorage.getItem('user_info'))
 
   const server = useContext(ServerContext)
@@ -40,8 +43,8 @@ function Post({ post, bookmarks }) {
 
   // Check if user bookmarked this post
   useEffect(() => {
-    if (user && bookmarks) {
-      const isBookmarkExist = bookmarks.some((bookmark) => {
+    if (user && userBookmarks) {
+      const isBookmarkExist = userBookmarks.some((bookmark) => {
         return bookmark._id === post.id
       })
 
@@ -51,7 +54,46 @@ function Post({ post, bookmarks }) {
         setBookmarkIcon('bookmark_border')
       }
     }
-  }, [bookmarks])
+  }, [userBookmarks])
+
+  const handleLike = () => {
+    axios
+      .post(server + '/post/' + post.id + '/like', {
+        post_id: post.id,
+      })
+      .then(function (response) {
+        setLikeCount(response.data.likes.length)
+
+        // Change icon on success
+        setLikeIcon((prev) => {
+          if (prev === 'favorite_border') {
+            return 'favorite'
+          } else {
+            return 'favorite_border'
+          }
+        })
+      })
+      .catch(function (err) {
+        console.log(err, 'handle like')
+      })
+  }
+
+  // Check if user liked this post
+  useEffect(() => {
+    if (user) {
+      const isUserLiked = post.likes.some((like) => {
+        console.log(like, user._id, post.title) /* This */
+        return like === user._id
+      })
+      console.log(isUserLiked)
+
+      if (isUserLiked) {
+        setLikeIcon('favorite')
+      } else {
+        setLikeIcon('favorite_border')
+      }
+    }
+  }, [post.likes])
 
   const goToPostDetail = () => {
     if (window.location.pathname !== '/post/' + post.id) {
@@ -92,7 +134,11 @@ function Post({ post, bookmarks }) {
         <div className="post-like-comment-container">
           {post.comments ? <CommentPresent count={post.comments.length} /> : ''}
 
-          <Likes count={post.likes.length} />
+          <Likes
+            count={likeCount}
+            handleLike={handleLike}
+            likeIcon={likeIcon}
+          />
         </div>
         <div className="post-footer-right">
           <p className="post-read-time">

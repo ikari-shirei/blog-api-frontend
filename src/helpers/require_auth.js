@@ -15,6 +15,7 @@ function requireAuth() {
       .catch(function (err) {
         if (localStorage.getItem('user_info') !== null) {
           localStorage.removeItem('user_info')
+          localStorage.removeItem('user')
         }
       })
   }

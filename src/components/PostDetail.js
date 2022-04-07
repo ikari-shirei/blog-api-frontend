@@ -58,7 +58,7 @@ function PostDetail({
             comments: post.comments,
           }}
           key={post._id}
-          bookmarks={userBookmarks}
+          userBookmarks={userBookmarks}
         />
       ) : (
         ''
