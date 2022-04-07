@@ -40,9 +40,6 @@ function Navbar() {
             <li onClick={toggleNavbar}>
               <Link to="/">Home</Link>
             </li>
-            <li onClick={toggleNavbar}>
-              <Link to="/tags">Tags</Link>
-            </li>
             {user ? (
               <li onClick={toggleNavbar}>
                 <Link to="/profile">Profile</Link> {/* Only after logged in */}

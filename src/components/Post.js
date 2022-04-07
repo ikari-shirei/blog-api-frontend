@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { React, useContext, useState, useEffect } from 'react'
+import { useNavigate } from 'react-router'
 import { DateTime } from 'luxon'
 import '../styles/Post.scss'
 
@@ -15,6 +16,7 @@ function Post({ post, bookmarks }) {
   const user = JSON.parse(localStorage.getItem('user_info'))
 
   const server = useContext(ServerContext)
+  const navigate = useNavigate()
 
   const handleBookmark = () => {
     axios
@@ -51,8 +53,15 @@ function Post({ post, bookmarks }) {
     }
   }, [bookmarks])
 
+  const goToPostDetail = () => {
+    if (window.location.pathname !== '/post/' + post.id) {
+      navigate('/post/' + post.id)
+    }
+  }
+
   const convertDate = (date) => {
     const newDate = new Date(date)
+
     return DateTime.fromJSDate(newDate).toLocaleString(DateTime.DATE_FULL)
   }
 
@@ -65,24 +74,18 @@ function Post({ post, bookmarks }) {
 
   return (
     <div className="Post">
-      <img className="post-image" src={post.image} alt="one" />
+      <img
+        className="post-image"
+        src={post.image}
+        alt="one"
+        onClick={goToPostDetail}
+      />
 
       <p className="post-date">{convertDate(post.date)}</p>
 
       <div className="post-main">
         <h1 className="post-title">{post.title}</h1>
         <p className="post-message">{post.message}</p>
-      </div>
-
-      <div className="post-tags-container">
-        {post.tags &&
-          post.tags.map((tag) => {
-            return (
-              <p className="post-tag" key={post.tags.indexOf(tag)}>
-                #{tag}
-              </p>
-            )
-          })}
       </div>
 
       <div className="post-footer">

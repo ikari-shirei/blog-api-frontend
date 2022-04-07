@@ -67,7 +67,6 @@ function Home() {
                       date: post.timestamp,
                       title: post.title,
                       message: post.message,
-                      tags: post.tags,
                       likes: post.likes,
                       comments: post.comments,
                     }}

@@ -10,6 +10,7 @@ import Login from './components/Login'
 import Register from './components/Register'
 import Profile from './components/Profile'
 import Success from './components/Success'
+import PostDetail from './components/PostDetail'
 
 // Context
 import { ServerContext } from './context/Server'
@@ -35,6 +36,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/success" element={<Success />} />
+          <Route path="/post/:id" element={<PostDetail />} />
         </Routes>
       </ServerContext.Provider>
     </div>
