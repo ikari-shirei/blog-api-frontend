@@ -36,28 +36,31 @@ function App() {
 
   const getUserBookmarks = () => {
     authHeader()
-
-    axios
-      .get(server + '/user/' + user._id + '/bookmarks')
-      .then(function (response) {
-        setUserBookmarks(response.data.bookmarks)
-      })
-      .catch(function (err) {
-        console.log(err, 'user bookmarks')
-      })
+    if (user) {
+      axios
+        .get(server + '/user/' + user._id + '/bookmarks')
+        .then(function (response) {
+          setUserBookmarks(response.data.bookmarks)
+        })
+        .catch(function (err) {
+          console.log(err, 'user bookmarks')
+        })
+    }
   }
 
   const getUserComments = () => {
     authHeader()
 
-    axios
-      .get(server + '/user/' + user._id + '/comments')
-      .then(function (response) {
-        setUserComments(response.data.comments)
-      })
-      .catch(function (err) {
-        console.log(err, 'user comments')
-      })
+    if (user) {
+      axios
+        .get(server + '/user/' + user._id + '/comments')
+        .then(function (response) {
+          setUserComments(response.data.comments)
+        })
+        .catch(function (err) {
+          console.log(err, 'user comments')
+        })
+    }
   }
 
   const getAllPosts = () => {

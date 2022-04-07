@@ -23,9 +23,7 @@ function PostDetail({
   const user = JSON.parse(localStorage.getItem('user_info'))
 
   useEffect(() => {
-    if (user) {
-      getUserBookmarks()
-    }
+    getUserBookmarks()
   }, [])
 
   const server = useContext(ServerContext)
@@ -65,7 +63,7 @@ function PostDetail({
       ) : (
         ''
       )}
-
+      <Comments comments={post ? post.comments : ''} />
       <h1>Post detail page</h1>
     </div>
   )

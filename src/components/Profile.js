@@ -33,9 +33,7 @@ function Profile({
 
   // Get bookmarks
   useEffect(() => {
-    if (user) {
-      getUserBookmarks()
-    }
+    getUserBookmarks()
   }, [])
 
   // Protect route
