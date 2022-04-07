@@ -12,28 +12,19 @@ import { ServerContext } from '../context/Server'
 //Helpers
 import { authHeader } from '../helpers/auth_header'
 
-function PostDetail() {
+function PostDetail({
+  userBookmarks,
+  getUserBookmarks,
+  userComments,
+  getUserComments,
+}) {
   const [post, setPost] = useState(null)
-  const [bookmarks, setBookmarks] = useState([])
 
   const user = JSON.parse(localStorage.getItem('user_info'))
 
-  const getBookmarks = () => {
-    authHeader()
-
-    axios
-      .get(server + '/profile/bookmarks')
-      .then(function (response) {
-        setBookmarks(response.data.bookmarks)
-      })
-      .catch(function (err) {
-        console.log(err)
-      })
-  }
-
   useEffect(() => {
     if (user) {
-      getBookmarks()
+      getUserBookmarks()
     }
   }, [])
 
@@ -44,10 +35,9 @@ function PostDetail() {
       .get(server + window.location.pathname)
       .then(function (response) {
         setPost(response.data.post)
-        console.log('response', response.data.post)
       })
       .catch(function (err) {
-        console.log(err)
+        console.log(err, 'post detail get post')
       })
   }
 
@@ -57,8 +47,6 @@ function PostDetail() {
 
   return (
     <div className="PostDetail">
-      {console.log(post)}
-
       {post ? (
         <Post
           post={{
@@ -72,7 +60,7 @@ function PostDetail() {
             comments: post.comments,
           }}
           key={post._id}
-          bookmarks={bookmarks}
+          bookmarks={userBookmarks}
         />
       ) : (
         ''

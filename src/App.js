@@ -1,7 +1,8 @@
-import { React, useEffect } from 'react'
+import { React, useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import './App.scss'
 import 'material-icons/iconfont/material-icons.css'
+import axios from 'axios'
 
 // Components
 import Navbar from './components/Navbar'
@@ -17,26 +18,102 @@ import { ServerContext } from './context/Server'
 
 // Helpers
 import requireAuth from './helpers/require_auth'
+import { authHeader } from './helpers/auth_header'
 
 function App() {
+  const [userBookmarks, setUserBookmarks] = useState(null)
+  const [userComments, setUserComments] = useState(null)
+
+  const [allPosts, setAllPosts] = useState(null)
+
   const user = JSON.parse(localStorage.getItem('user_info'))
+  const server = 'http://localhost:5000'
 
   // Check if user still logged in
   useEffect(() => {
     requireAuth()
   }, [])
 
+  const getUserBookmarks = () => {
+    authHeader()
+
+    axios
+      .get(server + '/user/' + user._id + '/bookmarks')
+      .then(function (response) {
+        setUserBookmarks(response.data.bookmarks)
+      })
+      .catch(function (err) {
+        console.log(err, 'user bookmarks')
+      })
+  }
+
+  const getUserComments = () => {
+    authHeader()
+
+    axios
+      .get(server + '/user/' + user._id + '/comments')
+      .then(function (response) {
+        setUserComments(response.data.comments)
+      })
+      .catch(function (err) {
+        console.log(err, 'user comments')
+      })
+  }
+
+  const getAllPosts = () => {
+    axios
+      .get(server + '/posts')
+      .then(function (response) {
+        setAllPosts(response.data.posts)
+      })
+      .catch(function (err) {
+        console.log(err, 'all posts')
+      })
+  }
+
   return (
     <div className="App">
       <Navbar />
       <ServerContext.Provider value="http://localhost:5000">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={
+              <Home
+                allPosts={allPosts}
+                getAllPosts={getAllPosts}
+                userBookmarks={userBookmarks}
+                getUserBookmarks={getUserBookmarks}
+                userComments={userComments}
+                getUserComments={getUserComments}
+              />
+            }
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                userBookmarks={userBookmarks}
+                getUserBookmarks={getUserBookmarks}
+                userComments={userComments}
+                getUserComments={getUserComments}
+              />
+            }
+          />
           <Route path="/success" element={<Success />} />
-          <Route path="/post/:id" element={<PostDetail />} />
+          <Route
+            path="/post/:id"
+            element={
+              <PostDetail
+                userBookmarks={userBookmarks}
+                getUserBookmarks={getUserBookmarks}
+                userComments={userComments}
+                getUserComments={getUserComments}
+              />
+            }
+          />
         </Routes>
       </ServerContext.Provider>
     </div>

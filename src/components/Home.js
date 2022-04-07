@@ -11,54 +11,32 @@ import { ServerContext } from '../context/Server'
 // Helpers
 import { authHeader } from '../helpers/auth_header'
 
-function Home() {
-  const [posts, setPosts] = useState([])
-  const [bookmarks, setBookmarks] = useState([])
-
+function Home({
+  allPosts,
+  getAllPosts,
+  userBookmarks,
+  getUserBookmarks,
+  userComments,
+  getUserComments,
+}) {
   const user = JSON.parse(localStorage.getItem('user_info'))
-
-  const server = useContext(ServerContext)
-
-  const getBookmarks = () => {
-    authHeader()
-
-    axios
-      .get(server + '/profile/bookmarks')
-      .then(function (response) {
-        setBookmarks(response.data.bookmarks)
-      })
-      .catch(function (err) {
-        console.log(err)
-      })
-  }
 
   useEffect(() => {
     if (user) {
-      getBookmarks()
+      getUserBookmarks()
     }
   }, [])
 
-  const getPosts = () => {
-    axios
-      .get(server + '/posts')
-      .then(function (response) {
-        setPosts(response.data.posts)
-      })
-      .catch(function (err) {
-        console.log(err)
-      })
-  }
-
   useEffect(() => {
-    getPosts()
+    getAllPosts()
   }, [])
 
   return (
     <div className="Home">
       <div className="home-inside">
         <div className="home-post-container">
-          {posts !== [] && posts
-            ? posts.map((post) => {
+          {allPosts !== [] && allPosts
+            ? allPosts.map((post) => {
                 return (
                   <Post
                     post={{
@@ -71,7 +49,7 @@ function Home() {
                       comments: post.comments,
                     }}
                     key={post._id}
-                    bookmarks={bookmarks}
+                    bookmarks={userBookmarks}
                   />
                 )
               })

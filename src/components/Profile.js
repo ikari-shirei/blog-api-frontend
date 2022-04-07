@@ -14,13 +14,15 @@ import { ServerContext } from '../context/Server'
 //Helpers
 import { authHeader } from '../helpers/auth_header'
 
-function Profile() {
+function Profile({
+  userBookmarks,
+  getUserBookmarks,
+  userComments,
+  getUserComments,
+}) {
   const user = JSON.parse(localStorage.getItem('user_info'))
 
-  const [bookmarks, setBookmarks] = useState([])
-
   const navigate = useNavigate()
-  const server = useContext(ServerContext)
 
   const logout = () => {
     localStorage.removeItem('user_info')
@@ -29,23 +31,10 @@ function Profile() {
     window.location.reload()
   }
 
-  const getBookmarks = () => {
-    authHeader()
-
-    axios
-      .get(server + '/profile/bookmarks')
-      .then(function (response) {
-        setBookmarks(response.data.bookmarks)
-      })
-      .catch(function (err) {
-        console.log(err)
-      })
-  }
-
   // Get bookmarks
   useEffect(() => {
     if (user) {
-      getBookmarks()
+      getUserBookmarks()
     }
   }, [])
 
@@ -77,9 +66,9 @@ function Profile() {
           </div>
 
           {/* Get populated bookmarks */}
-          <Bookmarks posts={bookmarks} />
+          <Bookmarks bookmarkedPosts={userBookmarks} />
 
-          <Comments comments={user.comments} />
+          <Comments comments={userComments} />
 
           <div className="profile-delete-account-button">
             <Button

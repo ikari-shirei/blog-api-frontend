@@ -34,7 +34,7 @@ function Post({ post, bookmarks }) {
         })
       })
       .catch(function (err) {
-        console.log(err)
+        console.log(err, 'handle bookmark')
       })
   }
 

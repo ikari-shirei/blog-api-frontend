@@ -4,14 +4,14 @@ import '../styles/Bookmarks.scss'
 // Components
 import Post from './Post'
 
-function Bookmarks({ posts }) {
+function Bookmarks({ bookmarkedPosts }) {
   return (
     <div className="Bookmarks">
       <h1 className="bookmarks-section-header">Bookmarks</h1>
 
       <div className="bookmarks-posts-container">
-        {posts && posts.length !== 0 ? (
-          posts.map((post) => {
+        {bookmarkedPosts && bookmarkedPosts.length !== 0 ? (
+          bookmarkedPosts.map((post) => {
             return (
               <Post
                 post={{
@@ -24,7 +24,7 @@ function Bookmarks({ posts }) {
                   comments: post.comments,
                 }}
                 key={post._id}
-                bookmarks={posts}
+                bookmarks={bookmarkedPosts}
               />
             )
           })
