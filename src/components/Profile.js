@@ -31,9 +31,10 @@ function Profile({
     window.location.reload()
   }
 
-  // Get bookmarks
+  // Get bookmarks and comments
   useEffect(() => {
     getUserBookmarks()
+    getUserComments()
   }, [])
 
   // Protect route

@@ -26,7 +26,7 @@ function Comments({ post, comments, getPost }) {
           />
         </div>
       )}
-
+      {console.log(comments)}
       {comments && comments.length !== 0 ? (
         comments.map((comment) => {
           return (
