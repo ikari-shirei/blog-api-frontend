@@ -20,8 +20,6 @@ function PostDetail({
 }) {
   const [post, setPost] = useState(null)
 
-  const user = JSON.parse(localStorage.getItem('user_info'))
-
   useEffect(() => {
     getUserBookmarks()
   }, [])
@@ -63,7 +61,11 @@ function PostDetail({
       ) : (
         ''
       )}
-      <Comments comments={post ? post.comments : ''} />
+      <Comments
+        post={post}
+        comments={post ? post.comments : ''}
+        getPost={getPost}
+      />
       <h1>Post detail page</h1>
     </div>
   )

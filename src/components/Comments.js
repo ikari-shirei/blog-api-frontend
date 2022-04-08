@@ -1,19 +1,29 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import '../styles/Comments.scss'
+import axios from 'axios'
 
 // Components
 import Comment from './Comment'
 import AddComment from './small/AddComment'
 
-function Comments({ post, comments }) {
+// Context
+import { ServerContext } from '../context/Server'
+
+function Comments({ post, comments, getPost }) {
+  const user = JSON.parse(localStorage.getItem('user_info'))
+
   return (
     <div className="Comments">
       <h1 className="comments-section-header">Comments</h1>
 
       {/* You can only send comments if there is post */}
-      {post && (
+      {post && user && (
         <div className="comments-section-add-comment">
-          <AddComment username={'your_username'} />
+          <AddComment
+            username={'your_username'}
+            post={post}
+            getPost={getPost}
+          />
         </div>
       )}
 
@@ -21,11 +31,10 @@ function Comments({ post, comments }) {
         comments.map((comment) => {
           return (
             <Comment
-              username={comment.username}
-              date={comment.date}
+              username={comment.user.username}
+              date={comment.timestamp}
               message={comment.message}
-              like_count={comment.likes}
-              key={comment.id}
+              key={comment._id}
             />
           )
         })

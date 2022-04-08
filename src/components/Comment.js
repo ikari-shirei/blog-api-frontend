@@ -3,7 +3,7 @@ import '../styles/Comment.scss'
 
 import Likes from './small/Likes'
 
-function Comment({ username, date, message, like_count }) {
+function Comment({ username, date, message }) {
   return (
     <div className="Comment">
       <div className="comment-top">
@@ -14,8 +14,6 @@ function Comment({ username, date, message, like_count }) {
       <div className="comment-middle">
         <p className="comment-message">{message}</p>
       </div>
-
-      <Likes count={like_count} />
     </div>
   )
 }
