@@ -2,9 +2,6 @@ import React from 'react'
 import '../styles/Comment.scss'
 import { DateTime } from 'luxon'
 
-// Components
-import Likes from './small/Likes'
-
 function Comment({ username, date, message }) {
   const convertDate = (date) => {
     const newDate = new Date(date)

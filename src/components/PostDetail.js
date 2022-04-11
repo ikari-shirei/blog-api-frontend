@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import '../styles/PostDetail.scss'
 import axios from 'axios'
+import { toast, ToastContainer } from 'react-toastify'
 
 // Components
 import Post from './Post'
@@ -10,15 +11,11 @@ import Comments from './Comments'
 import { ServerContext } from '../context/Server'
 
 //Helpers
-import { authHeader } from '../helpers/auth_header'
+import Spinner from './small/Spinner'
 
-function PostDetail({
-  userBookmarks,
-  getUserBookmarks,
-  userComments,
-  getUserComments,
-}) {
+function PostDetail({ userBookmarks, getUserBookmarks }) {
   const [post, setPost] = useState(null)
+  const [err, setErr] = useState(false)
 
   useEffect(() => {
     getUserBookmarks()
@@ -31,9 +28,12 @@ function PostDetail({
       .get(server + window.location.pathname)
       .then(function (response) {
         setPost(response.data.post)
+        setErr(false)
       })
       .catch(function (err) {
-        console.log(err, 'post detail get post')
+        toast.error('Something gone wrong.')
+        setErr(true)
+        console.error(err)
       })
   }
 
@@ -58,15 +58,25 @@ function PostDetail({
           key={post._id}
           userBookmarks={userBookmarks}
         />
+      ) : !err ? (
+        <div className="spinner-container">
+          <Spinner />
+        </div>
       ) : (
-        ''
+        "Couldn't get post. Try again later."
       )}
-      <Comments
-        post={post}
-        comments={post ? post.comments : ''}
-        getPost={getPost}
-      />
-      <h1>Post detail page</h1>
+
+      {post && (
+        <Comments
+          post={post}
+          comments={post ? post.comments : ''}
+          getPost={getPost}
+        />
+      )}
+
+      <div className="post-detail-bottom">
+        <ToastContainer />
+      </div>
     </div>
   )
 }

@@ -36,6 +36,7 @@ function App() {
 
   const getUserBookmarks = () => {
     authHeader()
+
     if (user) {
       axios
         .get(server + '/user/' + user._id + '/bookmarks')
@@ -58,7 +59,7 @@ function App() {
           setUserComments(response.data.comments)
         })
         .catch(function (err) {
-          console.log(err, 'user comments')
+          console.error(err)
         })
     }
   }
@@ -70,7 +71,7 @@ function App() {
         setAllPosts(response.data.posts)
       })
       .catch(function (err) {
-        console.log(err, 'all posts')
+        console.error(err)
       })
   }
 
@@ -87,8 +88,6 @@ function App() {
                 getAllPosts={getAllPosts}
                 userBookmarks={userBookmarks}
                 getUserBookmarks={getUserBookmarks}
-                userComments={userComments}
-                getUserComments={getUserComments}
               />
             }
           />
@@ -112,8 +111,6 @@ function App() {
               <PostDetail
                 userBookmarks={userBookmarks}
                 getUserBookmarks={getUserBookmarks}
-                userComments={userComments}
-                getUserComments={getUserComments}
               />
             }
           />

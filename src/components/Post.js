@@ -2,6 +2,8 @@ import axios from 'axios'
 import { React, useContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { DateTime } from 'luxon'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import '../styles/Post.scss'
 
 //Components
@@ -12,7 +14,7 @@ import Likes from './small/Likes'
 import { ServerContext } from '../context/Server'
 
 // Helpers
-import requireAuth from '../helpers/require_auth'
+import { authHeader } from '../helpers/auth_header'
 
 function Post({ post, userBookmarks }) {
   const [bookmarkIcon, setBookmarkIcon] = useState('bookmark_border')
@@ -25,6 +27,8 @@ function Post({ post, userBookmarks }) {
   const navigate = useNavigate()
 
   const handleBookmark = () => {
+    authHeader()
+
     axios
       .post(server + '/post/' + post.id + '/bookmark', {
         post_id: post.id,
@@ -40,7 +44,8 @@ function Post({ post, userBookmarks }) {
         })
       })
       .catch(function (err) {
-        console.log(err, 'handle bookmark')
+        toast.error('Something gone wrong.')
+        console.error(err)
       })
   }
 
@@ -60,6 +65,8 @@ function Post({ post, userBookmarks }) {
   }, [userBookmarks])
 
   const handleLike = () => {
+    authHeader()
+
     axios
       .post(server + '/post/' + post.id + '/like', {
         post_id: post.id,
@@ -67,7 +74,7 @@ function Post({ post, userBookmarks }) {
       .then(function () {
         // Change icon on success
         setLikeIcon((prev) => {
-          if (prev === 'favorite_border') {
+          if (prev === 'favorite_border' && user) {
             return 'favorite'
           } else {
             return 'favorite_border'
@@ -75,26 +82,37 @@ function Post({ post, userBookmarks }) {
         })
       })
       .catch(function (err) {
-        console.log(err, 'handle like')
+        if (!user) {
+          navigate('/login')
+        } else {
+          toast.error('Something gone wrong.')
+          console.error(err)
+        }
       })
   }
 
   // Check if user liked this post
   useEffect(() => {
     if (user) {
-      axios.get(server + '/post/' + post.id).then(function (response) {
-        setLikeCount(response.data.post.likes.length)
+      axios
+        .get(server + '/post/' + post.id)
+        .then(function (response) {
+          setLikeCount(response.data.post.likes.length)
 
-        const isUserLiked = response.data.post.likes.some((like) => {
-          return like === user._id
+          const isUserLiked = response.data.post.likes.some((like) => {
+            return like === user._id
+          })
+
+          if (isUserLiked) {
+            setLikeIcon('favorite')
+          } else {
+            setLikeIcon('favorite_border')
+          }
         })
-
-        if (isUserLiked) {
-          setLikeIcon('favorite')
-        } else {
-          setLikeIcon('favorite_border')
-        }
-      })
+        .catch(function (err) {
+          toast.error('Something gone wrong.')
+          console.error(err)
+        })
     }
   }, [likeIcon])
 
@@ -126,16 +144,29 @@ function Post({ post, userBookmarks }) {
         onClick={goToPostDetail}
       />
 
-      <p className="post-date">{convertDate(post.date)}</p>
+      <p className="post-date" onClick={goToPostDetail}>
+        {convertDate(post.date)}
+      </p>
 
       <div className="post-main">
-        <h1 className="post-title">{post.title}</h1>
-        <p className="post-message">{post.message}</p>
+        <h1 className="post-title" onClick={goToPostDetail}>
+          {post.title}
+        </h1>
+        <p className="post-message" onClick={goToPostDetail}>
+          {post.message}
+        </p>
       </div>
 
       <div className="post-footer">
         <div className="post-like-comment-container">
-          {post.comments ? <CommentPresent count={post.comments.length} /> : ''}
+          {post.comments ? (
+            <CommentPresent
+              count={post.comments.length}
+              goToPostDetail={goToPostDetail}
+            />
+          ) : (
+            ''
+          )}
 
           <Likes
             count={likeCount}
@@ -162,6 +193,7 @@ function Post({ post, userBookmarks }) {
           )}
 
           {/* Bookmark */}
+          <ToastContainer />
         </div>
       </div>
     </div>

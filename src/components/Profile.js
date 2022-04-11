@@ -8,12 +8,6 @@ import Bookmarks from './Bookmarks'
 import Button from './small/Button'
 import Comments from './Comments'
 
-// Context
-import { ServerContext } from '../context/Server'
-
-//Helpers
-import { authHeader } from '../helpers/auth_header'
-
 function Profile({
   userBookmarks,
   getUserBookmarks,

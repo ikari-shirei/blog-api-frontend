@@ -45,6 +45,18 @@ a {
   color: initial;
 }
 
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+}
 /* * {
   outline: 1px solid red;
 } */

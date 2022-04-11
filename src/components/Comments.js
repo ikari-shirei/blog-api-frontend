@@ -6,9 +6,6 @@ import axios from 'axios'
 import Comment from './Comment'
 import AddComment from './small/AddComment'
 
-// Context
-import { ServerContext } from '../context/Server'
-
 function Comments({ post, comments, getPost }) {
   const user = JSON.parse(localStorage.getItem('user_info'))
 
@@ -26,8 +23,8 @@ function Comments({ post, comments, getPost }) {
           />
         </div>
       )}
-      {console.log(comments)}
-      {comments && comments.length !== 0 ? (
+
+      {comments && comments.length !== 0 && Array.isArray(comments) ? (
         comments.map((comment) => {
           return (
             <Comment

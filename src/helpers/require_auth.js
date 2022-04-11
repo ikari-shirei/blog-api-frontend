@@ -13,7 +13,7 @@ function requireAuth() {
         localStorage.setItem('user_info', JSON.stringify(response.data.user))
       })
       .catch(function (err) {
-        if (localStorage.getItem('user_info') !== null) {
+        if (localStorage.getItem('user_info') || localStorage.getItem('user')) {
           localStorage.removeItem('user_info')
           localStorage.removeItem('user')
         }

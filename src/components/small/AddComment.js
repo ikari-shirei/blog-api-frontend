@@ -1,30 +1,37 @@
 import React, { useContext, useState } from 'react'
 import './AddComment.scss'
 import axios from 'axios'
+import { toast, ToastContainer } from 'react-toastify'
 
+// Components
 import Button from './Button'
 
 // Context
 import { ServerContext } from '../../context/Server'
 
+// Helpers
+import { authHeader } from '../../helpers/auth_header'
+
 function AddComment({ username, post, getPost }) {
   const [message, setMessage] = useState('')
-
-  const user = JSON.parse(localStorage.getItem('user_info'))
 
   const server = useContext(ServerContext)
 
   const addComment = () => {
-    axios
-      .post(server + '/post/' + post._id + '/comment', { message: message })
-      .then(function (response) {
-        console.log(response.data)
+    authHeader()
 
+    axios
+      .post(server + '/post/' + post._id + '/comment', {
+        message: message,
+      })
+      .then(function () {
         setMessage('')
         getPost()
+        toast.success('Your comment is sent.')
       })
       .catch(function (err) {
-        console.log(err, 'post add')
+        console.error(err)
+        toast.error('Something gone wrong.')
       })
   }
 
@@ -42,6 +49,7 @@ function AddComment({ username, post, getPost }) {
       <div className="add-button-container">
         <Button value={'Add'} variant="first-variant" onClick={addComment} />
       </div>
+      <ToastContainer />
     </div>
   )
 }

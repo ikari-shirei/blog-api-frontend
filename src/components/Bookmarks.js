@@ -10,7 +10,9 @@ function Bookmarks({ bookmarkedPosts }) {
       <h1 className="bookmarks-section-header">Bookmarks</h1>
 
       <div className="bookmarks-posts-container">
-        {bookmarkedPosts && bookmarkedPosts.length !== 0 ? (
+        {bookmarkedPosts &&
+        Array.isArray(bookmarkedPosts) &&
+        bookmarkedPosts.length !== 0 ? (
           bookmarkedPosts.map((post) => {
             return (
               <Post
