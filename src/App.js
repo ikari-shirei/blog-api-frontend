@@ -27,7 +27,8 @@ function App() {
   const [allPosts, setAllPosts] = useState(null)
 
   const user = JSON.parse(localStorage.getItem('user_info'))
-  const server = 'http://localhost:5000'
+  const server =
+    'https://ikari-shirei-blog-api.glitch.me' || 'http://localhost:5000'
 
   // Check if user still logged in
   useEffect(() => {
@@ -78,7 +79,11 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <ServerContext.Provider value="http://localhost:5000">
+      <ServerContext.Provider
+        value={
+          'https://ikari-shirei-blog-api.glitch.me' || 'http://localhost:5000'
+        }
+      >
         <Routes>
           <Route
             path="/"
