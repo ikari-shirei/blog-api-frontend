@@ -10,6 +10,7 @@ function Success() {
       clearTimeout(timeout)
 
       navigate('/')
+      window.location.reload()
     }, 1000)
   })
 

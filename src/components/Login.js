@@ -40,7 +40,6 @@ function Login() {
           localStorage.setItem('user', JSON.stringify(response.data.token))
 
           navigate('/success')
-          window.location.reload()
         }
       })
       .catch(function (error) {

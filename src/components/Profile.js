@@ -21,6 +21,7 @@ function Profile({
     localStorage.removeItem('user_info')
     localStorage.removeItem('user')
 
+    navigate('/')
     window.location.reload()
   }
 
