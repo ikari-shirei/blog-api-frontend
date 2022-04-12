@@ -16,10 +16,12 @@ import { ServerContext } from '../context/Server'
 // Helpers
 import { authHeader } from '../helpers/auth_header'
 
-function Post({ post, userBookmarks }) {
+function Post({ post, userBookmarks, isDetailed }) {
   const [bookmarkIcon, setBookmarkIcon] = useState('bookmark_border')
   const [likeIcon, setLikeIcon] = useState('favorite_border')
   const [likeCount, setLikeCount] = useState(post.likes.length)
+
+  const detail = isDetailed ? 'detailed' : ''
 
   const user = JSON.parse(localStorage.getItem('user_info'))
 
@@ -152,8 +154,9 @@ function Post({ post, userBookmarks }) {
         <h1 className="post-title" onClick={goToPostDetail}>
           {post.title}
         </h1>
-        <p className="post-message" onClick={goToPostDetail}>
+        <p className={'post-message ' + detail} onClick={goToPostDetail}>
           {post.message}
+          {!isDetailed ? <div className="message-hider"></div> : ''}
         </p>
       </div>
 

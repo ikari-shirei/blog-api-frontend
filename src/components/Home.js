@@ -46,6 +46,7 @@ function Home({ allPosts, getAllPosts, userBookmarks, getUserBookmarks }) {
                   }}
                   key={post._id}
                   userBookmarks={userBookmarks}
+                  isDetailed={false}
                 />
               )
             })

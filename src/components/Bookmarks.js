@@ -27,6 +27,7 @@ function Bookmarks({ bookmarkedPosts }) {
                 }}
                 key={post._id}
                 userBookmarks={bookmarkedPosts}
+                isDetailed={false}
               />
             )
           })

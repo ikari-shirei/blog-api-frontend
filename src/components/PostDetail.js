@@ -57,6 +57,7 @@ function PostDetail({ userBookmarks, getUserBookmarks }) {
           }}
           key={post._id}
           userBookmarks={userBookmarks}
+          isDetailed={true}
         />
       ) : !err ? (
         <div className="spinner-container">

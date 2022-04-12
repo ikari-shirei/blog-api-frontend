@@ -60,3 +60,14 @@ a {
 /* * {
   outline: 1px solid red;
 } */
+
+@media only screen and (min-width: 600px) {
+  .Home {
+    width: auto;
+
+    .home-inside {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}

@@ -37,15 +37,41 @@
     }
 
     .post-message {
+      position: relative;
+
       color: $color2-50;
 
       font-weight: 300;
       font-size: $medium;
 
+      height: 100px;
+      overflow-y: hidden;
+
       margin: 0;
       margin-top: 8px;
 
       cursor: pointer;
+    }
+
+    .detailed {
+      position: inherit;
+      height: auto;
+      overflow-y: visible;
+    }
+
+    .message-hider {
+      position: absolute;
+      bottom: 0;
+
+      height: 50px;
+      width: 300px;
+
+      background: rgb(0, 0, 0);
+      background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0) 100%
+      );
     }
   }
 

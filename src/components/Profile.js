@@ -2,11 +2,18 @@ import { React, useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../styles/Profile.scss'
 import axios from 'axios'
+import { toast, ToastContainer } from 'react-toastify'
 
 // Components
 import Bookmarks from './Bookmarks'
 import Button from './small/Button'
 import Comments from './Comments'
+
+// Context
+import { ServerContext } from '../context/Server'
+
+// Helpers
+import { authHeader } from '../helpers/auth_header'
 
 function Profile({
   userBookmarks,
@@ -17,6 +24,7 @@ function Profile({
   const user = JSON.parse(localStorage.getItem('user_info'))
 
   const navigate = useNavigate()
+  const server = useContext(ServerContext)
 
   const logout = () => {
     localStorage.removeItem('user_info')
@@ -62,15 +70,8 @@ function Profile({
           <Bookmarks bookmarkedPosts={userBookmarks} />
 
           <Comments comments={userComments} />
-
-          <div className="profile-delete-account-button">
-            <Button
-              value="Delete Account"
-              variant="first-variant"
-              type="button"
-            />
-          </div>
         </div>
+        <ToastContainer />
       </div>
     )
   }
