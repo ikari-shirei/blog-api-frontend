@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 import '../styles/Comments.scss'
-import axios from 'axios'
 
 // Components
 import Comment from './Comment'

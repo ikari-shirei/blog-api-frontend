@@ -8,6 +8,7 @@ function Comment({ username, date, message }) {
 
     return DateTime.fromJSDate(newDate).toLocaleString(DateTime.DATE_FULL)
   }
+
   return (
     <div className="Comment">
       <div className="comment-top">

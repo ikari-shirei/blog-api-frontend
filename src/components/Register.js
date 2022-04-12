@@ -1,6 +1,7 @@
 import { React, useContext, useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import '../styles/Register.scss'
+import axios from 'axios'
 
 // Components
 import Button from './small/Button'
@@ -21,7 +22,6 @@ function Register() {
   })
   const [errors, setErrors] = useState(null)
 
-  const axios = require('axios').default
   const server = useContext(ServerContext)
   const navigate = useNavigate()
 

@@ -1,20 +1,11 @@
-import { React, useState, useContext, useEffect } from 'react'
+import { React, useEffect } from 'react'
 import '../styles/Home.scss'
-import axios from 'axios'
 
 // Components
 import Post from './Post'
 import Spinner from './small/Spinner'
 
-// Context
-import { ServerContext } from '../context/Server'
-
-// Helpers
-import { authHeader } from '../helpers/auth_header'
-
 function Home({ allPosts, getAllPosts, userBookmarks, getUserBookmarks }) {
-  const user = JSON.parse(localStorage.getItem('user_info'))
-
   useEffect(() => {
     getUserBookmarks()
   }, [])
