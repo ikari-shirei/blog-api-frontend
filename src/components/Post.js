@@ -156,7 +156,7 @@ function Post({ post, userBookmarks, isDetailed }) {
         </h1>
         <p className={'post-message ' + detail} onClick={goToPostDetail}>
           {post.message}
-          {!isDetailed ? <div className="message-hider"></div> : ''}
+          {!isDetailed ? <span className="message-hider"></span> : ''}
         </p>
       </div>
 

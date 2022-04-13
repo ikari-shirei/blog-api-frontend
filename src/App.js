@@ -1,6 +1,5 @@
 import { React, useEffect, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import './App.scss'
 import 'material-icons/iconfont/material-icons.css'
 import axios from 'axios'
 
@@ -12,6 +11,7 @@ import Register from './components/Register'
 import Profile from './components/Profile'
 import Success from './components/Success'
 import PostDetail from './components/PostDetail'
+import NotFound from './components/NotFound'
 
 // Context
 import { ServerContext } from './context/Server'
@@ -119,6 +119,7 @@ function App() {
               />
             }
           />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </ServerContext.Provider>
     </div>

@@ -62,9 +62,10 @@
     .message-hider {
       position: absolute;
       bottom: 0;
+      left: 0;
 
       height: 30px;
-      width: 300px;
+      width: $fixed-width1;
 
       background: rgb(0, 0, 0);
       background: linear-gradient(

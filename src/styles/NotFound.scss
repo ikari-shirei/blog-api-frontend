@@ -1,0 +1,21 @@
+@import '../index.scss';
+
+.NotFound {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+
+  h1 {
+    color: $color2;
+    font-size: $biggest;
+    font-weight: 800;
+  }
+
+  a {
+    font-size: $medium;
+
+    text-decoration: underline;
+  }
+}
